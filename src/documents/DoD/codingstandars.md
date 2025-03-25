@@ -8,3 +8,4 @@
 - [] Comments on methods that are more advanced than get/set
 - [] Routing should take place in controllers
 - [] coretto-17 language version
+- [] Cupcake database name
