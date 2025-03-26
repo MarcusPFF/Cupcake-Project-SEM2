@@ -126,9 +126,4 @@ public class CustomerMapper {
             throw new DatabaseException(ex, "Could not get bottom from database");
         }
     }
-
-
-
-
-
 }
