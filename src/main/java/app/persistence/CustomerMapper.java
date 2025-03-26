@@ -50,6 +50,25 @@ public class CustomerMapper {
         }
     }
 
+    public String getCustomerNameFromEmail(ConnectionPool connectionPool, String customerEmail) throws DatabaseException {
+        String sql = "SELECT customer_name FROM cupcake_customers WHERE customer_email = ?;";
+
+        try (Connection connection = connectionPool.getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setString(1, customerEmail);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("customer_name");
+                } else {
+                    throw new DatabaseException(null, "Could not find customer name for the given email.");
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Could not fetch name from database.");
+        }
+    }
+
 
 
     //TODO tjek om denne metode virker
