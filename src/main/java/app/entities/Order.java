@@ -1,18 +1,18 @@
 package app.entities;
 
+import java.util.Date;
+
 public class Order {
     private int orderId;
-    private int bottomId;
-    private int toppingId;
-    private int quantity;
-    private int totalPrice;
+    private String status;
+    private Date date;
+    private float totalOrderPrice;
 
-    public Order(int orderId, int bottomId, int toppingId, int quantity, int price) {
+    public Order(int orderId, String status, Date date, float totalOrderPrice) {
         this.orderId = orderId;
-        this.bottomId = bottomId;
-        this.toppingId = toppingId;
-        this.quantity = quantity;
-        this.totalPrice = price;
+        this.status = status;
+        this.date = date;
+        this.totalOrderPrice = totalOrderPrice;
     }
 
 
@@ -24,35 +24,27 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public int getBottomId() {
-        return bottomId;
+    public String getStatus() {
+        return status;
     }
 
-    public void setBottomId(int bottomId) {
-        this.bottomId = bottomId;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public int getToppingId() {
-        return toppingId;
+    public Date getDate() {
+        return date;
     }
 
-    public void setToppingId(int toppingId) {
-        this.toppingId = toppingId;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public float getTotalOrderPrice() {
+        return totalOrderPrice;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public int getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setTotalOrderPrice(float totalOrderPrice) {
+        this.totalOrderPrice = totalOrderPrice;
     }
 }
