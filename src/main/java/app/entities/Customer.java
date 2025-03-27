@@ -1,14 +1,18 @@
 package app.entities;
 
 public class Customer {
+    private final float wallet;
     private String email;
     private String username;
     private String password;
+    private int customerId;
 
-    public Customer(String email, String username, String password) {
+    public Customer(int customerId, String email, String username, String password, float wallet) {
+        this.customerId = customerId;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.wallet = wallet;
     }
 
     public String getEmail() {

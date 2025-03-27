@@ -6,9 +6,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import app.entities.Customer;
 
 
 public class CustomerMapper {
+    private static Customer customer;
 
     //Til signup
     public void addNewCustomer(ConnectionPool connectionPool, String email, String name, String password, float wallet) throws DatabaseException {
@@ -70,7 +75,6 @@ public class CustomerMapper {
     }
 
 
-
     //TODO tjek om denne metode virker
     public boolean verifyUserCredentials(ConnectionPool connectionPool, String customerName, String password) throws DatabaseException {
         String sql = "SELECT customer_id FROM cupcake_customers WHERE (customer_name = ? OR customer_email = ?) AND customer_password = ?;";
@@ -106,43 +110,26 @@ public class CustomerMapper {
         }
     }
 
-    public int getToppingIdFromToppingFlavour(ConnectionPool connectionPool, String toppingFlavour) throws DatabaseException {
-        String sql = "SELECT topping_id FROM cupcake_toppings WHERE topping_flavour = ?;";
+    private List<Customer> getAllCustomers(ConnectionPool connectionPool) throws DatabaseException {
+        List<Customer> customers = new ArrayList<>();
+        String sql = "SELECT customer_id, customer_email, customer_name, customer_password, customer_wallet FROM cupcake_customers;";
 
-        try (Connection connection = connectionPool.getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
-            ps.setString(1, toppingFlavour);
+            while (rs.next()) {
+                int id = rs.getInt("customer_id");
+                String email = rs.getString("customer_email");
+                String name = rs.getString("customer_name");
+                String password = rs.getString("customer_password");
+                float wallet = rs.getFloat("customer_wallet");
 
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return (rs.getInt("topping_id"));
-
-                } else {
-                    throw new DatabaseException(null, "Could not get topping id from database");
-                }
+                customers.add(new Customer(id, email, name, password, wallet));
             }
         } catch (SQLException ex) {
-            throw new DatabaseException(ex, "Could not get topping from database");
+            throw new DatabaseException(ex, "Could not fetch customer list from database.");
         }
-    }
-
-    public int getBottomIdFromBottomFlavour(ConnectionPool connectionPool, String bottomFlavour) throws DatabaseException {
-        String sql = "SELECT bottom_id FROM cupcake_toppings WHERE bottom_flavour = ?;";
-
-        try (Connection connection = connectionPool.getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
-
-            ps.setString(1, bottomFlavour);
-
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return (rs.getInt("bottom_id"));
-
-                } else {
-                    throw new DatabaseException(null, "Could not get bottom id from database");
-                }
-            }
-        } catch (SQLException ex) {
-            throw new DatabaseException(ex, "Could not get bottom from database");
-        }
+        return customers;
     }
 }
