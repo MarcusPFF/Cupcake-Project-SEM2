@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cupcake Factory</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/stylesindex.css" th:href="@{/css/stylescustomers.css}" rel="stylesheet"/>
+    <script th:src="@{/js/quantityCounter.js}"></script>
+</head>
+<body>
+<div class="top-container">
+    <div class="header-left">
+        <a th:href="@{/index}" class="logo">CupCake</a>
+    </div>
+    <div class="header-right">
+        <div class="loggedin" th:unless="${username}">
+            <div class="login-group">
+                <div class="login-text">
+                    <a th:href="@{/login}" class="login-link">LogInd</a>
+                </div>
+            </div>
+        </div>
+        <div class="loggedin" th:if="${username}">
+            <div class="admin" th:if="${username == 'admin'}">
+                <div class="customer-text">
+                    <a th:href="@{/customer}" class="login-link">Kunder</a>
+                </div>
+            </div>
+            <div class="order-text">
+                <a th:href="@{/orders}" class="login-link">Ordre</a>
+            </div>
+            <div class="login-group">
+                <div class="login-text">
+                    <a th:href="@{/logout}" class="login-link">LogUd</a>
+                </div>
+                <div class="loggedInAs">
+                    <span th:text="${username}"></span>
+                </div>
+            </div>
+        </div>
+        <img th:src="@{/images/shoppingcart.png}"
+             src="/images/shoppingcart.png"
+             class="shopping-cart-icon"
+             alt="Shopping Cart">
+    </div>
+</div>
+<div class="middle-container">
+    <div class="middle-form">
+        <div class="middle-form-header">
+            <h4-ID>ID</h4-ID>
+            <h4-Name>Name</h4-Name>
+            <h4-Email>Email</h4-Email>
+            <h4-Wallet>Wallet</h4-Wallet>
+        </div>
+        <div class="middle-form-2">
+            <div class="customer-list">
+                <div class="customer-row" th:each="customer : ${customers}">
+                    <div class="customer-id" th:text="${customer.customer_id}"></div>
+                    <div class="customer-name" th:text="${customer.customer_name}"></div>
+                    <div class="customer-email" th:text="${customer.customer_email}"></div>
+                    <div class="customer-wallet" th:text="${'$' + #numbers.formatDecimal(customer.customer_wallet, 1, 2)}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
