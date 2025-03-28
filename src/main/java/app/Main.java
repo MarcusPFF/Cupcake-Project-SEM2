@@ -4,6 +4,7 @@ import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
+import app.controllers.RoutingController;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,5 +18,6 @@ public class Main {
 
         // Routing
         app.get("/", ctx -> ctx.render("index.html"));
+        RoutingController.routes(app);
     }
 }

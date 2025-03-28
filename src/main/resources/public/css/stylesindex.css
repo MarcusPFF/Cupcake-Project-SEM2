@@ -1,0 +1,419 @@
+/* ----------------------------
+INDEX PAGE STYLING SHEET
+---------------------------- */
+@font-face {
+    font-family: 'Monsieur La Doulaise';
+    src: url('public/css/fonts/MonsieurLaDoulaise-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Montez';
+    src: url('public/css/fonts/Montez-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Montaga';
+    src: url('public/css/fonts/Montaga-Regular.ttf') format('truetype');
+}
+
+body {
+    background-color: #f5e6cc;
+    margin: 0;
+}
+
+.loggedin {
+    display: flex;
+    align-items: center;
+}
+
+.login-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.shopping-cart-icon {
+    height: 75px;
+    width: auto;
+    margin-left: 15px;
+    padding: 5px;
+    opacity: 0.9;
+    transition: all 0.2s ease;
+    filter: brightness(0) invert(1);
+}
+
+.shopping-cart-icon:hover {
+    opacity: 1;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: 2px;
+}
+
+.loggedInAs {
+    color: #ffffff;
+    margin: auto;
+    font-family: 'Montaga';
+    font-size: 18px;
+    stoke: none;
+    font-weight: 75;
+}
+
+.order-text {
+    margin-right: 70px;
+    order: -1;
+}
+
+.customer-text {
+    margin-right: 70px;
+    order: -1;
+}
+
+.login-link {
+    color: #ffffff;
+    margin: 0;
+    font-family: 'Montez';
+    font-size: 60px;
+    stoke: none;
+    font-weight: 75;
+    text-decoration: none;
+    text-underline: none;
+}
+
+.login-link:hover {
+    color: #357abd
+}
+
+.top-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 50px;
+    background-color: #6D4C41;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+html, body {
+    overflow: scroll;
+}
+
+.middle-container {
+    padding-top: 300px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.middle-form-image {
+    position: absolute;
+    top: -120px;
+    left: 30%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.middle-form-image img {
+    width: 550px;
+    height: 550px;
+}
+
+.kok {
+    width: 300px;
+    height: auto;
+    position: relative;
+    z-index: 3;
+    filter: drop-shadow(0px 10px 10px rgba(0, 0, 0, 0.3));
+}
+
+.middle-form-image2 {
+    position: absolute;
+    top: 30px;
+/ right: 30 %;
+    z-index: 1;
+    transform: translateX(61%);
+    text-align: center;
+}
+
+.middle-form-image2 img {
+    width: 600px;
+    height: auto;
+    filter: drop-shadow(0px 10px 10px rgba(0, 0, 0, 0.3));
+}
+
+.middle-form {
+    width: 1200px;
+    max-height: 400px;
+    min-height: 800px;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background: #EADDC4;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 2;
+    top: 0;
+}
+
+.middle-form-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.middle-form-header h2 {
+    font-family: Montaga;
+    color: #000000;
+    text-align: center;
+    font-weight: lighter;
+    font-size: 48px;
+    margin-bottom: 30px;
+}
+
+.logo {
+    color: #ffffff;
+    margin: 0;
+    font-family: 'Monsieur La Doulaise';
+    font-size: 75px;
+    stroke: none;
+    font-weight: 75;
+    text-decoration: none;
+    text-underline: none;
+}
+
+.login-text {
+    color: #ffffff;
+    margin: 0;
+    font-family: 'Montez';
+    font-size: 60px;
+    stroke: none;
+    font-weight: 75;
+}
+
+.login-text:hover {
+    color: #357abd;
+}
+
+/* ====================== */
+/* MUFFIN GRID STYLING */
+/* ====================== */
+
+:root {
+    --brown-dark: #5D3C31;
+    --brown-medium: #6D4C41;
+    --brown-light: #A78B71;
+    --cream: #EADDC4;
+}
+
+.muffin-grid {
+    grid-template-rows: auto;
+    align-items: stretch;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    padding: 20px;
+    overflow: visible;
+    padding-bottom: 20px;
+}
+
+.muffin-item {
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+    background-color: #E8D0A9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    flex-grow: 1;
+    top: 105px;
+}
+
+
+.muffin-item:hover {
+    transform: translateY(-5px);
+}
+
+.muffin-bottom-topping {
+    font-family: 'Montaga', serif;
+    color: var(--brown-dark);
+    font-size: 1.2rem;
+    margin: 0.3em 0;
+    margin-left: 5px;
+    text-align: center;
+}
+
+.muffin-image-container {
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.muffin-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.muffin-info {
+    width: 100%;
+    margin-top: auto;
+}
+
+.muffin-name,
+.muffin-price {
+    margin: 0.5em 0;
+    text-align: center;
+}
+
+.muffin-name {
+    font-family: 'Montaga', serif;
+    color: var(--brown-medium);
+    font-size: 1.2rem;
+}
+
+.muffin-price {
+    font-family: 'Montaga', serif;
+    color: var(--brown-dark);
+    font-size: 1.5rem;
+}
+
+.muffin-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8em;
+    width: 100%;
+    margin-top: 1em;
+}
+
+.add-to-cart-btn,
+.quantity-btn {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    font-family: Montaga;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.quantity-btn {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #6D4C41;
+    border-radius: 50%;
+    background-color: transparent;
+    color: #6D4C41;
+    font-family: 'Montaga', serif;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.quantity-btn:hover {
+    background-color: #6D4C41;
+    color: white;
+}
+
+.quantity-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 15px 0;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.add-to-cart-btn {
+    background-color: #A78B71;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-family: Montaga, serif;
+    font-size: 1.1em;
+    margin-left: auto;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+form {
+    margin: 0;
+    display: contents;
+}
+
+
+.add-to-cart-btn:hover {
+    background-color: #8C6F55;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 1200px) {
+    .muffin-grid {
+        justify-content: center;
+    }
+
+    .muffin-item {
+        width: min(180px, 40%);
+    }
+}
+
+@media (max-width: 768px) {
+    .muffin-item {
+        width: min(150px, 45%);
+        padding: 10px;
+    }
+
+    .muffin-name {
+        font-size: 1rem;
+    }
+
+    .muffin-price {
+        font-size: 1.2rem;
+    }
+
+    .quantity-wrapper {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .add-to-cart-btn {
+        width: 100%;
+        adding: 0.6em 1em;
+        order: 3;
+    }
+}
+
+.products-wrapper {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding: 20px;
+    scrollbar-width: thin;
+    scrollbar-color: #A78B71 #EADDC4;
+}
