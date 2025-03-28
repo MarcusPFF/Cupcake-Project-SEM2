@@ -64,7 +64,11 @@ public class OrderMapper {
 
 
     public ArrayList<Order> getListOfAllCustomersOrders(ConnectionPool connectionPool) throws DatabaseException {
-        String sql = "SELECT customer_orders.order_id, status_name, order_date, SUM(total_price) as total_price_sum FROM customer_orders JOIN order_status ON customer_orders.status_id = order_status.order_id JOIN customer_order_history ON customer_orders.order_id = customer_order_history.order_id GROUP BY customer_orders.order_id, status_name, order_date ORDER BY order_date DESC";
+        String sql = "SELECT customer_orders.order_id, status_name, order_date, SUM(total_price) as total_price_sum " +
+                "FROM customer_orders JOIN order_status ON customer_orders.status_id = order_status.order_id " +
+                "JOIN customer_order_history ON customer_orders.order_id = customer_order_history.order_id " +
+                "GROUP BY customer_orders.order_id, status_name, order_date " +
+                "ORDER BY order_date DESC";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
