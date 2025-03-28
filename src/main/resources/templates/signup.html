@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cupcake Factory</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/stylesloginregister.css" th:href="@{/css/stylesloginregister.css}" rel="stylesheet"/>
+</head>
+<body>
+<div class="top-container">
+    <div class="header-left">
+        <a th:href="@{/index}" class="logo">CupCake</a>
+    </div>
+    <div class="header-right">
+        <h2 class="login-text">Login</h2>
+        <img th:src="@{/images/shoppingcart.png}"
+             src="/images/shoppingcart.png"
+             class="shopping-cart-icon"
+             alt="Shopping Cart">
+    </div>
+</div>
+<div class="middle-container">
+    <div class="login-form">
+        <div class="login-form-header">
+            <h2>Registrer dig her</h2>
+        </div>
+        <form method="post" th:action="@{/signup}" class="login-form-body">
+            <input type="text"
+                   placeholder="Brugernavn"
+                   name="username"
+                   required
+                   minlength="3">
+
+            <input type="email"
+                   placeholder="Email"
+                   name="email"
+                   required>
+
+            <input type="password"
+                   placeholder="Password"
+                   name="password"
+                   required
+                   minlength="3">
+
+            <div class="login-form-button">
+                <a th:href="@{/login}" class="back-button">Login</a>
+                <button type="submit" class="login-button">Registrer</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+</div>
+</body>
+</html>

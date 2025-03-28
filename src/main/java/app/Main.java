@@ -5,7 +5,9 @@ import app.config.ThymeleafConfig;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
+import app.controllers.RoutingController;
 import java.util.logging.Logger;
+
 
 public class Main {
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
@@ -26,6 +28,7 @@ public class Main {
 
         // Routing
         app.get("/", ctx -> ctx.render("index.html"));
+        RoutingController.routes(app);
     }
 }
 
