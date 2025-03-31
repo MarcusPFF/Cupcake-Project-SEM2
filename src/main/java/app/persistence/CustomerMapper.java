@@ -1,5 +1,6 @@
 package app.persistence;
 
+import app.entities.Customer;
 import app.exceptions.DatabaseException;
 
 import java.sql.Connection;
@@ -9,15 +10,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.entities.Customer;
-
 
 public class CustomerMapper {
     private static Customer customer;
 
     //Til signup
-    public void addNewCustomer(ConnectionPool connectionPool, String email, String name, String password, float wallet) throws DatabaseException {
-        String sql = "INSERT INTO cupcake_customers (customer_email, customer_name, customer_password, customer_wallet) " + "VALUES (?, ?, ?,?) " + "ON CONFLICT (customer_email) DO NOTHING;";
+    public void addNewCustomer(ConnectionPool connectionPool, String email, String name, String password, float wallet) throws DatabaseException {   
+        String sql = "INSERT INTO cupcake_customers (customer_email, customer_name, customer_password, customer_wallet) "
+                + "VALUES (?, ?, ?,?) "
+                + "ON CONFLICT (customer_email) DO NOTHING;";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -74,8 +75,6 @@ public class CustomerMapper {
         }
     }
 
-
-    //TODO tjek om denne metode virker
     public boolean verifyUserCredentials(ConnectionPool connectionPool, String customerName, String password) throws DatabaseException {
         String sql = "SELECT customer_id FROM cupcake_customers WHERE (customer_name = ? OR customer_email = ?) AND customer_password = ?;";
         try (Connection connection = connectionPool.getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {

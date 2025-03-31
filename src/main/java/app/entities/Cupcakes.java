@@ -6,14 +6,12 @@ public class Cupcakes {
     private int quantity;
     private float totalCupcakePrice;
 
-    public Cupcakes( String bottomFlavour, String toppingFlavour, int quantity, float totalCupcakePrice) {
+    public Cupcakes(String bottomFlavour, String toppingFlavour, int quantity, float totalCupcakePrice) {
         this.bottomFlavour = bottomFlavour;
         this.toppingFlavour = toppingFlavour;
         this.quantity = quantity;
         this.totalCupcakePrice = totalCupcakePrice;
     }
-
-
 
 
     public String getBottomFlavour() {
