@@ -28,11 +28,21 @@ public class RoutingController {
         app.get("/index", ctx -> showIndexPage(ctx));
         app.post("/index", ctx -> handleIndex(ctx));
 
-        //cart
+        //Orders
+        app.get("/orders", ctx -> showOrdersPage(ctx));
+
+        //Cart
         app.post("/cart", ctx -> handleCart(ctx));
 
     }
 
+    private static void showOrdersPage(Context ctx) {
+        String username = ctx.sessionAttribute("username");
+        if (username == null) {
+            username = "Guest";
+        }
+        ctx.render("/orders.html", Map.of("username", username));
+    }
     private static void showLoginPage(Context ctx) {
         ctx.render("/login.html");
     }
