@@ -1,0 +1,309 @@
+/* ----------------------------
+ORDERS PAGE STYLING SHEET
+---------------------------- */
+@font-face {
+    font-family: 'Monsieur La Doulaise';
+    src: url('public/css/fonts/MonsieurLaDoulaise-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Montez';
+    src: url('public/css/fonts/Montez-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Montaga';
+    src: url('public/css/fonts/Montaga-Regular.ttf') format('truetype');
+}
+
+body {
+    background-color: #f5e6cc;
+    margin: 0;
+}
+
+.loggedin {
+    display: flex;
+    align-items: center;
+}
+
+.login-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.shopping-cart-icon {
+    height: 75px;
+    width: auto;
+    margin-left: 15px;
+    padding-right: 50px;
+    opacity: 0.9;
+    transition: all 0.2s ease;
+    filter: brightness(0) invert(1);
+}
+
+.shopping-cart-icon:hover {
+    opacity: 1;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: 2px;
+}
+
+.loggedInAs {
+    color: #ffffff;
+    margin: auto;
+    font-family: 'Montaga';
+    font-size: 18px;
+    stoke: none;
+    font-weight: 75;
+}
+
+.order-text {
+    margin-right: 70px;
+    order: -1;
+}
+
+.customer-text {
+    margin-right: 70px;
+    order: -1;
+}
+
+.login-link {
+    color: #ffffff;
+    margin: 0;
+    font-family: 'Montez';
+    font-size: 60px;
+    stoke: none;
+    font-weight: 75;
+    text-decoration: none;
+    text-underline: none;
+}
+
+.login-link:hover {
+    color: #357abd
+}
+
+.top-container {
+    width: 100vw;
+    min-width: 1000px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #6D4C41;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+html, body {
+    overflow: scroll;
+}
+
+.middle-container {
+    position: relative;
+    display: flex;
+    margin-left: 10vw;
+    align-items: flex-start;
+    height: 100vh;
+    box-sizing: border-box;
+    top: 50px;
+}
+
+.middle-order-container {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    width: 100vw;
+    min-width: 1000px;
+    height: 300px;
+}
+
+
+.middle-form-order {
+    width: 350px;
+    height: 100px;
+    display: flex;
+    margin-left: 10vw;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    background: #EADDC4;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 2;
+    top: 100px;
+
+}
+
+.middle-form-order-header {
+    font-family: 'Montaga';
+    display: flex;
+    font-size: 60px;
+    font-weight: bold;
+    z-index: 2;
+    padding-left: 1vw;
+    padding-top: 10px;
+    position: absolute;
+}
+
+.middle-form-image2 {
+    display: flex;
+    z-index: 2;
+    margin-left: 70px;
+}
+
+.middle-form-image2 img {
+    width: 50vw;
+    min-width: 500px;
+    height: auto;
+    filter: drop-shadow(0px 10px 10px rgba(0, 0, 0, 0.3));
+}
+
+.middle-form {
+    width: 80vw;
+    min-width: 800px;
+    max-height: 450px;
+    min-height: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: #EADDC4;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 2;
+    top: 0;
+}
+
+.middle-form-header {
+    width: 55vw;
+    min-width: 550px;
+    font-family: 'Montaga';
+    display: flex;
+    justify-content: space-between;
+    padding: 0 100px;
+    font-size: 30px;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+}
+
+.middle-form-2 {
+    margin-top: 30px;
+    width: 70vw;
+    min-width: 700px;
+    max-height: 315px;
+    min-height: 315px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: #DACDB5;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 3;
+    top: 0;
+}
+.order-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.order-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 100px;
+    align-items: center;
+    font-size: 20px;
+    border-bottom: 1px solid #c5b79b;
+}
+
+.order-row:nth-child(even) {
+    background-color: #e0d5c0;
+}
+
+.order-row:hover {
+    background-color: #d3c6ad;
+}
+
+.order-nr {
+    width: 100px;
+    text-align: left;
+}
+
+.order-status {
+    width: 300px;
+    text-align: left;
+}
+
+.order-date {
+    width: 400px;
+    text-align: left;
+}
+
+.order-total {
+    width: 100px;
+    text-align: right;
+}
+
+.middle-form-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.middle-form-header h2 {
+    font-family: Montaga;
+    color: #000000;
+    text-align: center;
+    font-weight: lighter;
+    font-size: 48px;
+    margin-bottom: 30px;
+}
+
+.logo {
+    color: #ffffff;
+    margin: 0;
+    font-family: 'Monsieur La Doulaise';
+    font-size: 75px;
+    stroke: none;
+    padding: 5px 50px;
+    font-weight: 75;
+    text-decoration: none;
+    text-underline: none;
+}
+
+.login-text {
+    color: #ffffff;
+    margin: 0;
+    font-family: 'Montez';
+    font-size: 60px;
+    stroke: none;
+    font-weight: 75;
+}
+
+.login-text:hover {
+    color: #357abd;
+}
+
+:root {
+    --brown-dark: #5D3C31;
+    --brown-medium: #6D4C41;
+    --brown-light: #A78B71;
+    --cream: #EADDC4;
+}
+
+
+
+
