@@ -17,7 +17,7 @@ public class CustomerMapper {
 
     //Til signup
     public void addNewCustomer(ConnectionPool connectionPool, String email, String name, String password, float wallet) throws DatabaseException {
-        String sql = "INSERT INTO cupcake_customers (customer_email, customer_name, customer_password, customer_wallet) " + "VALUES (?, ?, ?,0) " + "ON CONFLICT (customer_email) DO NOTHING;";
+        String sql = "INSERT INTO cupcake_customers (customer_email, customer_name, customer_password, customer_wallet) " + "VALUES (?, ?, ?,?) " + "ON CONFLICT (customer_email) DO NOTHING;";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -110,21 +110,20 @@ public class CustomerMapper {
         }
     }
 
-    private List<Customer> getAllCustomers(ConnectionPool connectionPool) throws DatabaseException {
+    public List<Customer> getAllCustomers(ConnectionPool connectionPool) throws DatabaseException {
         List<Customer> customers = new ArrayList<>();
         String sql = "SELECT customer_id, customer_email, customer_name, customer_password, customer_wallet FROM cupcake_customers;";
 
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+             PreparedStatement ps = connection.prepareStatement(sql)){
 
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("customer_id");
                 String email = rs.getString("customer_email");
                 String name = rs.getString("customer_name");
                 String password = rs.getString("customer_password");
                 float wallet = rs.getFloat("customer_wallet");
-
                 customers.add(new Customer(id, email, name, password, wallet));
             }
         } catch (SQLException ex) {

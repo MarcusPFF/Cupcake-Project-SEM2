@@ -47,4 +47,14 @@ public class Cupcakes {
     public void setTotalCupcakePrice(float totalCupcakePrice) {
         this.totalCupcakePrice = totalCupcakePrice;
     }
+
+    @Override
+    public String toString() {
+        return "Cupcakes{" +
+                "bottomFlavour='" + bottomFlavour + '\'' +
+                ", toppingFlavour='" + toppingFlavour + '\'' +
+                ", quantity=" + quantity +
+                ", totalCupcakePrice=" + totalCupcakePrice +
+                '}';
+    }
 }

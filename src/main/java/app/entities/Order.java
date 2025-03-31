@@ -47,4 +47,14 @@ public class Order {
     public void setTotalOrderPrice(float totalOrderPrice) {
         this.totalOrderPrice = totalOrderPrice;
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderId=" + orderId +
+                ", status='" + status + '\'' +
+                ", date=" + date +
+                ", totalOrderPrice=" + totalOrderPrice +
+                '}';
+    }
 }

@@ -3,14 +3,14 @@ package app.entities;
 public class Customer {
     private final float wallet;
     private String email;
-    private String username;
+    private String name;
     private String password;
     private int customerId;
 
-    public Customer(int customerId, String email, String username, String password, float wallet) {
+    public Customer(int customerId, String email, String name, String password, float wallet) {
         this.customerId = customerId;
         this.email = email;
-        this.username = username;
+        this.name = name;
         this.password = password;
         this.wallet = wallet;
     }
@@ -23,14 +23,6 @@ public class Customer {
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -39,12 +31,34 @@ public class Customer {
         this.password = password;
     }
 
+    public float getWallet() {
+        return wallet;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+
     @Override
     public String toString() {
-        return "LifeHackTeam3Subscriber{" +
-                "email='" + email + '\'' +
-                ", username='" + username + '\'' +
+        return "Customer{" +
+                "wallet=" + wallet +
+                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
+                ", customerId=" + customerId +
                 '}';
     }
 }

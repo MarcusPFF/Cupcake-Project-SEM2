@@ -47,18 +47,18 @@
 <div class="middle-container">
     <div class="middle-form">
         <div class="middle-form-header">
-            <h4-ID>ID</h4-ID>
-            <h4-Name>Name</h4-Name>
-            <h4-Email>Email</h4-Email>
-            <h4-Wallet>Wallet</h4-Wallet>
+            <h4 class="column-header">ID</h4>
+            <h4 class="column-header">Name</h4>
+            <h4 class="column-header">Email</h4>
+            <h4 class="column-header">Wallet</h4>
         </div>
         <div class="middle-form-2">
             <div class="customer-list">
                 <div class="customer-row" th:each="customer : ${customers}">
-                    <div class="customer-id" th:text="${customer.customer_id}"></div>
-                    <div class="customer-name" th:text="${customer.customer_name}"></div>
-                    <div class="customer-email" th:text="${customer.customer_email}"></div>
-                    <div class="customer-wallet" th:text="${'$' + #numbers.formatDecimal(customer.customer_wallet, 1, 2)}"></div>
+                    <div class="customer-id" th:text="${customer.customerId}"></div>
+                    <div class="customer-name" th:text="${customer.name}"></div>
+                    <div class="customer-email" th:text="${customer.email}"></div>
+                    <div class="customer-wallet" th:text="|${customer.wallet}|"></div>
                 </div>
             </div>
         </div>

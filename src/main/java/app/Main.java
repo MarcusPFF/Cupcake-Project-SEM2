@@ -27,7 +27,7 @@ public class Main {
         }).start(7070);
 
         // Routing
-        app.get("/", ctx -> ctx.render("customers.html"));
+        app.get("/", ctx -> ctx.render("index.html"));
         RoutingController.routes(app);
     }
 }
