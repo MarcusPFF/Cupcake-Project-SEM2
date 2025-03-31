@@ -116,7 +116,4 @@ public class OrderMapper {
         int orderId = addNewOrder(connectionPool, customerId);
         addNewOrderHistories(connectionPool, customerId, orderId, cart);
     }
-
-
-
 }
