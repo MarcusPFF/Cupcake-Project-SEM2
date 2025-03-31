@@ -1,5 +1,5 @@
 /* ----------------------------
-INDEX PAGE STYLING SHEET
+CUSTOMERS PAGE STYLING SHEET
 ---------------------------- */
 @font-face {
     font-family: 'Monsieur La Doulaise';
@@ -132,8 +132,8 @@ html, body {
     width: 70%;
     font-family: 'Montaga';
     display: flex;
-    justify-content: space-between; /* Spreads items evenly */
-    padding: 0 100px; /* Adds spacing on the sides */
+    justify-content: space-between;
+    padding: 0 100px;
     font-size: 30px;
     font-weight: bold;
     position: relative;
@@ -182,7 +182,6 @@ html, body {
     background-color: #d3c6ad;
 }
 
-/* These classes should match the widths of your header columns */
 .customer-id {
     width: 100px;
     text-align: left;

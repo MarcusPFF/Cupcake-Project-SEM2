@@ -14,8 +14,6 @@ import java.util.Map;
 
 public class RoutingController {
     private static CustomerMapper customerMapper = new CustomerMapper();
-
-    private static CustomerMapper customerMapper = new CustomerMapper();
     private static ConnectionPool connectionPool = ConnectionPool.getInstance();
 
 
@@ -42,6 +40,7 @@ public class RoutingController {
         //Cart
         app.post("/cart", ctx -> handleCart(ctx));
 
+        //customers
         app.get("/customers", ctx -> showCustomersPage(ctx));
 
     }
