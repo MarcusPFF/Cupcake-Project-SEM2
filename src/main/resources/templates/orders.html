@@ -47,7 +47,12 @@
 <div class="middle-order-container">
     <div class="middle-form-order">
         <div class="middle-form-order-header">
-            <h4-Order>Alle Ordre</h4-Order>
+            <div class="loggedin" th:unless="${username == 'admin'}">
+                <h4-Order>Dine Ordre</h4-Order>
+            </div>
+            <div class="loggedin" th:if="${username == 'admin'}">
+                <h4-Order>Alle Ordre</h4-Order>
+            </div>
         </div>
     </div>
     <div class="middle-form-image2">
