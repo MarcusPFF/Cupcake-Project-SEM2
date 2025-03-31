@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cupcake Factory</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/stylesindex.css" th:href="@{/css/stylesorders.css}" rel="stylesheet"/>
+    <script th:src="@{/js/quantityCounter.js}"></script>
+</head>
+<body>
+<div class="top-container">
+    <div class="header-left">
+        <a th:href="@{/index}" class="logo">CupCake</a>
+    </div>
+    <div class="header-right">
+        <div class="loggedin" th:unless="${username}">
+            <div class="login-group">
+                <div class="login-text">
+                    <a th:href="@{/login}" class="login-link">LogInd</a>
+                </div>
+            </div>
+        </div>
+        <div class="loggedin" th:if="${username}">
+            <div class="admin" th:if="${username == 'admin'}">
+                <div class="customer-text">
+                    <a th:href="@{/customer}" class="login-link">Kunder</a>
+                </div>
+            </div>
+            <div class="order-text">
+                <a th:href="@{/orders}" class="login-link">Ordre</a>
+            </div>
+            <div class="login-group">
+                <div class="login-text">
+                    <a th:href="@{/logout}" class="login-link">LogUd</a>
+                </div>
+                <div class="loggedInAs">
+                    <span th:text="${username}"></span>
+                </div>
+            </div>
+        </div>
+        <img th:src="@{/images/shoppingcart.png}"
+             src="/images/shoppingcart.png"
+             class="shopping-cart-icon"
+             alt="Shopping Cart">
+    </div>
+</div>
+<div class="middle-order-container">
+    <div class="middle-form-order">
+        <div class="middle-form-order-header">
+            <h4-Order>Alle Ordre</h4-Order>
+        </div>
+    </div>
+    <div class="middle-form-image2">
+        <img th:src="@{/images/Mini_Assorted_Cupcakes_1.png}" class="cupcakes" alt="cupcakes">
+    </div>
+</div>
+<div class="middle-container">
+    <div class="middle-form">
+        <div class="middle-form-header">
+            <h4-ID>Order nr</h4-ID>
+            <h4-Name>Status</h4-Name>
+            <h4-Email>Dato</h4-Email>
+            <h4-Wallet>Total</h4-Wallet>
+        </div>
+        <div class="middle-form-2">
+            <div class="order-list">
+                <div class="order-row" th:each="order : ${order}">
+                    <div class="order-nr" th:text="${order.order_id}"></div>
+                    <div class="order-status" th:text="${order.order_status}"></div>
+                    <div class="order-date" th:text="${order.order_date}"></div>
+                    <div class="order-total" th:text="${'$' + order.order_totalPrice}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
