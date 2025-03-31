@@ -88,11 +88,11 @@ public class RoutingController {
                 ctx.sessionAttribute("customerId", userId);
                 showIndexPage(ctx);
             } else {
-                ctx.redirect("/login");
+                ctx.redirect("/login?error=wrongcredentials");
             }
         } catch (DatabaseException e) {
             e.printStackTrace();
-            ctx.redirect("/login");
+            ctx.redirect("/login?error=somethingwentwrong404");
         }
 
     }

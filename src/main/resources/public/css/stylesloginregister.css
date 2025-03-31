@@ -21,6 +21,16 @@ body {
     margin: 0;
 }
 
+.error-message {
+    position: absolute;
+    top: 300px;
+    left: 0;
+    color: red;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+}
+
 .shopping-cart-icon {
     height: 75px;
     width: auto;
