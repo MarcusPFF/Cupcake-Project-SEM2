@@ -35,11 +35,14 @@
                    placeholder="Password"
                    name="password"
                    required>
-
+            <div class="error-container">
+                <div th:if="${param.error}">
+                    <p class="error-message">Forkert brugernavn eller adgangskode</p>
+                </div>
+            </div>
             <div class="form-footer">
                 <p>Hvis du ikke har en konto, så registrer dig <a th:href="@{/signup}" class="register-link">her</a></p>
             </div>
-
             <div class="login-form-button">
                 <a th:href="@{/index}" class="back-button">Back</a>
                 <button type="submit" class="login-button">LogInd</button>
