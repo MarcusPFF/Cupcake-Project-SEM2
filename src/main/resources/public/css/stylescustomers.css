@@ -17,19 +17,71 @@ CUSTOMERS PAGE STYLING SHEET
 }
 
 .middle-container {
-    padding-top: 300px;
+    top: 50px;
     position: relative;
     display: flex;
-    justify-content: center;
+    margin-left: 10vw;
     align-items: flex-start;
     height: 100vh;
     box-sizing: border-box;
 }
 
+
+.middle-top-container {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    width: 100vw;
+    min-width: 1000px;
+    height: 300px;
+}
+
+
+.middle-form-top {
+    width: 350px;
+    height: 100px;
+    display: flex;
+    margin-left: 10vw;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    background: #EADDC4;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 2;
+    top: 100px;
+
+}
+
+.middle-form-top-header {
+    font-family: 'Montaga';
+    display: flex;
+    font-size: 60px;
+    font-weight: bold;
+    z-index: 2;
+    padding-left: 1vw;
+    padding-top: 10px;
+    position: absolute;
+}
+
+.middle-form-image2 {
+    display: flex;
+    z-index: 2;
+    margin-left: 70px;
+}
+
+.middle-form-image2 img {
+    width: 50vw;
+    min-width: 500px;
+    height: auto;
+    filter: drop-shadow(0px 10px 10px rgba(0, 0, 0, 0.3));
+}
+
 .middle-form {
-    width: 1200px;
-    max-height: 450px;
-    min-height: 450px;
+    width: 80vw;
+    min-width: 800px;
+    height: 450px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -43,7 +95,8 @@ CUSTOMERS PAGE STYLING SHEET
 }
 
 .middle-form-header {
-    width: 70%;
+    width: 55vw;
+    min-width: 550px;
     font-family: 'Montaga';
     display: flex;
     justify-content: space-between;
@@ -55,13 +108,16 @@ CUSTOMERS PAGE STYLING SHEET
 }
 
 .middle-form-2 {
-    margin-top: 15px;
-    width: 1000px;
-    max-height: 290px;
-    min-height: 290px;
+    margin-top: 30px;
+    width: 70vw;
+    min-width: 700px;
+    max-height: 315px;
+    min-height: 315px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
     background: #DACDB5;
     border-radius: 15px;
@@ -75,7 +131,7 @@ CUSTOMERS PAGE STYLING SHEET
     width: 100%;
     display: flex;
     flex-direction: column;
-    z-index: 4;
+    top: 5px;
 
 }
 
@@ -131,8 +187,6 @@ CUSTOMERS PAGE STYLING SHEET
     font-size: 48px;
     margin-bottom: 30px;
 }
-
-
 
 
 :root {
