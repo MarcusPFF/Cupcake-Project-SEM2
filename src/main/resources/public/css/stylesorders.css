@@ -27,7 +27,7 @@ ORDERS PAGE STYLING SHEET
     top: 50px;
 }
 
-.middle-top-container {
+.middle-order-container {
     position: relative;
     display: flex;
     align-items: flex-start;
@@ -37,7 +37,7 @@ ORDERS PAGE STYLING SHEET
 }
 
 
-.middle-form-top {
+.middle-form-order {
     width: 350px;
     height: 100px;
     display: flex;
@@ -54,7 +54,7 @@ ORDERS PAGE STYLING SHEET
 
 }
 
-.middle-form-top-header {
+.middle-form-order-header {
     font-family: 'Montaga';
     display: flex;
     font-size: 60px;

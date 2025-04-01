@@ -17,52 +17,13 @@ CUSTOMERS PAGE STYLING SHEET
 }
 
 .middle-container {
-    top: 50px;
+    padding-top: 300px;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     height: 100vh;
     box-sizing: border-box;
-}
-
-
-.middle-top-container {
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    width: 100vw;
-    min-width: 1000px;
-    height: 300px;
-}
-
-
-.middle-form-top {
-    width: 350px;
-    height: 100px;
-    display: flex;
-    margin-left: 10vw;
-    align-items: center;
-    flex-direction: column;
-    padding: 20px;
-    background: #EADDC4;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    position: relative;
-    z-index: 2;
-    top: 100px;
-
-}
-
-.middle-form-top-header {
-    font-family: 'Montaga';
-    display: flex;
-    font-size: 60px;
-    font-weight: bold;
-    z-index: 2;
-    padding-left: 1vw;
-    padding-top: 10px;
-    position: absolute;
 }
 
 .middle-form {
