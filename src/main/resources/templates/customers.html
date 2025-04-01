@@ -46,6 +46,15 @@
 </div>
 <div class="middle-container">
     <div class="middle-form">
+        <div class="removeCustomer">
+            <form method="post" th:action="@{/customers}" class="removeCustomerButton">
+                <input type = "text"
+                       name="customerId"
+                       class="customer-id-input"
+                       placeholder="Indsæt Kunde ID"/>
+                <button type="submit" class="delete-customer-btn"> Fjern Kunde </button>
+            </form>
+        </div>
         <div class="middle-form-header">
             <h4 class="column-header">ID</h4>
             <h4 class="column-header">Name</h4>

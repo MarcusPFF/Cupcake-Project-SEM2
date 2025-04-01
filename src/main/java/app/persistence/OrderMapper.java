@@ -18,7 +18,6 @@ import java.util.List;
 public class OrderMapper {
 
 
-
     public int addNewOrder(ConnectionPool connectionPool, int customerId) throws DatabaseException {
         String sql = "INSERT INTO customer_orders(customer_id, order_date, status_id) " + "VALUES (?, CURRENT_DATE, 1);";
 
@@ -116,4 +115,45 @@ public class OrderMapper {
         int orderId = addNewOrder(connectionPool, customerId);
         addNewOrderHistories(connectionPool, customerId, orderId, cart);
     }
+
+    public void removeOrderById(ConnectionPool connectionPool, int orderId) throws DatabaseException {
+        String sql = "DELETE FROM customer_orders WHERE order_id = ?;";
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, orderId);
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected == 0) {
+                throw new DatabaseException(null, "No order found with ID: " + orderId);
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Could not delete order from database");
+        }
+    }
+
+    public void removeOrderHistoryById(ConnectionPool connectionPool, int orderId) throws DatabaseException {
+        String sql = "DELETE FROM customer_order_history WHERE order_id = ?;";
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, orderId);
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected == 0) {
+                throw new DatabaseException(null, "No order found with ID: " + orderId);
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Could not delete order history from database");
+        }
+    }
+
+    public void executeRemoveOrderAndHistoryById(ConnectionPool connectionPool, int orderId) throws
+            DatabaseException {
+        removeOrderHistoryById(connectionPool, orderId);
+        removeOrderById(connectionPool, orderId);
+    }
 }
+
