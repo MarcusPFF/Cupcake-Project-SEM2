@@ -81,7 +81,7 @@ CUSTOMERS PAGE STYLING SHEET
 .middle-form {
     width: 80vw;
     min-width: 800px;
-    height: 450px;
+    height: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -99,8 +99,7 @@ CUSTOMERS PAGE STYLING SHEET
     min-width: 550px;
     font-family: 'Montaga';
     display: flex;
-    justify-content: space-between;
-    padding: 0 100px;
+    padding: 0 75px;
     font-size: 30px;
     font-weight: bold;
     position: relative;
@@ -108,7 +107,6 @@ CUSTOMERS PAGE STYLING SHEET
 }
 
 .middle-form-2 {
-    margin-top: 30px;
     width: 70vw;
     min-width: 700px;
     max-height: 315px;
@@ -116,8 +114,7 @@ CUSTOMERS PAGE STYLING SHEET
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    align-items: stretch;
     padding: 20px;
     background: #DACDB5;
     border-radius: 15px;
@@ -170,6 +167,27 @@ CUSTOMERS PAGE STYLING SHEET
 .customer-wallet {
     width: 100px;
     text-align: right;
+}
+
+.column-header-id {
+    width: 150px;
+    text-align: left;
+    margin-left: 1vw;
+}
+
+.column-header-name {
+    width: 400px;
+    text-align: left;
+}
+
+.column-header-email {
+    width: 550px;
+    text-align: left;
+}
+
+.column-header-wallet {
+    width: 100px;
+    text-align: left;
 }
 
 .middle-form-body {
