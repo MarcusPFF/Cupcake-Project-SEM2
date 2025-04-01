@@ -44,9 +44,9 @@
              alt="Shopping Cart">
     </div>
 </div>
-<div class="middle-order-container">
-    <div class="middle-form-order">
-        <div class="middle-form-order-header">
+<div class="middle-top-container">
+    <div class="middle-form-top">
+        <div class="middle-form-top-header">
             <div class="loggedin" th:unless="${username == 'admin'}">
                 <h4-Order>Dine Ordre</h4-Order>
             </div>
@@ -70,10 +70,10 @@
         <div class="middle-form-2">
             <div class="order-list">
                 <div class="order-row" th:each="order : ${order}">
-                    <div class="order-nr" th:text="${order.order_id}"></div>
-                    <div class="order-status" th:text="${order.order_status}"></div>
-                    <div class="order-date" th:text="${order.order_date}"></div>
-                    <div class="order-total" th:text="${'$' + order.order_totalPrice}"></div>
+                    <div class="order-nr" th:text="${order.orderId}"></div>
+                    <div class="order-status" th:text="${order.status}"></div>
+                    <div class="order-date" th:text="${order.date}"></div>
+                    <div class="order-total" th:text="${'$' + order.totalOrderPrice}"></div>
                 </div>
             </div>
         </div>
