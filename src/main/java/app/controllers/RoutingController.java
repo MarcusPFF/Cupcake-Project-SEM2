@@ -43,7 +43,25 @@ public class RoutingController {
         //customers
         app.get("/customers", ctx -> showCustomersPage(ctx));
 
+        //delete customer
+        app.post("/customers", ctx -> handleCustomerDeletion(ctx));
+
     }
+    public static void handleCustomerDeletion(Context ctx) {
+        String customerIdString = ctx.formParam("customerId");
+
+        try {
+            int customerId = Integer.parseInt(customerIdString);
+            customerMapper.removeCustomerById(connectionPool, customerId);
+            showCustomersPage(ctx);
+
+        } catch (NumberFormatException e) {
+            showCustomersPage(ctx);
+        } catch (DatabaseException e) {
+            showCustomersPage(ctx);
+        }
+    }
+
 
     public static void showCustomersPage(Context ctx) {
         try {
