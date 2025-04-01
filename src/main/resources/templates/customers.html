@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../public/css/stylesindex.css" th:href="@{/css/stylescustomers.css}" rel="stylesheet"/>
     <link href="../public/css/stylesheadermenu.css" th:href="@{/css/stylesheadermenu.css}" rel="stylesheet"/>
+    <link href="../public/css/stylesorders.css" th:href="@{/css/stylesorders.css}" rel="stylesheet"/>
     <script th:src="@{/js/quantityCounter.js}"></script>
 </head>
 <body>
@@ -43,6 +44,18 @@
              src="/images/shoppingcart.png"
              class="shopping-cart-icon"
              alt="Shopping Cart">
+    </div>
+</div>
+<div class="middle-top-container">
+    <div class="middle-form-top">
+        <div class="middle-form-top-header">
+            <div class="loggedin" th:if="${username == 'admin'}">
+                <h4-Order>Alle Kunder</h4-Order>
+            </div>
+        </div>
+    </div>
+    <div class="middle-form-image2">
+        <img th:src="@{/images/Mini_Assorted_Cupcakes_1.png}" class="cupcakes" alt="cupcakes">
     </div>
 </div>
 <div class="middle-container">
