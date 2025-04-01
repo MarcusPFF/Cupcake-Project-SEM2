@@ -39,10 +39,7 @@ body {
 }
 
 .header-left {
-    display: flex;
-    align-items: center;
     position: relative;
-    top: 2px;
     z-index: 5;
 }
 
