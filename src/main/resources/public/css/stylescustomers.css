@@ -16,106 +16,72 @@ CUSTOMERS PAGE STYLING SHEET
     src: url('public/css/fonts/Montaga-Regular.ttf') format('truetype');
 }
 
-body {
-    background-color: #f5e6cc;
-    margin: 0;
-}
-
-.loggedin {
-    display: flex;
-    align-items: center;
-}
-
-.login-group {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.shopping-cart-icon {
-    height: 75px;
-    width: auto;
-    margin-left: 15px;
-    padding: 5px;
-    opacity: 0.9;
-    transition: all 0.2s ease;
-    filter: brightness(0) invert(1);
-}
-
-.shopping-cart-icon:hover {
-    opacity: 1;
-    transform: scale(1.05);
-    cursor: pointer;
-}
-
-.header-right {
-    display: flex;
-    align-items: center;
-    position: relative;
-    top: 2px;
-}
-
-.loggedInAs {
-    color: #ffffff;
-    margin: auto;
-    font-family: 'Montaga';
-    font-size: 18px;
-    stoke: none;
-    font-weight: 75;
-}
-
-.order-text {
-    margin-right: 70px;
-    order: -1;
-}
-
-.customer-text {
-    margin-right: 70px;
-    order: -1;
-}
-
-.login-link {
-    color: #ffffff;
-    margin: 0;
-    font-family: 'Montez';
-    font-size: 60px;
-    stoke: none;
-    font-weight: 75;
-    text-decoration: none;
-    text-underline: none;
-}
-
-.login-link:hover {
-    color: #357abd
-}
-
-.top-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 50px;
-    background-color: #6D4C41;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-html, body {
-    overflow: scroll;
-}
-
 .middle-container {
-    padding-top: 300px;
+    top: 50px;
     position: relative;
     display: flex;
-    justify-content: center;
+    margin-left: 10vw;
     align-items: flex-start;
     height: 100vh;
     box-sizing: border-box;
 }
 
+
+.middle-top-container {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    width: 100vw;
+    min-width: 1000px;
+    height: 300px;
+}
+
+
+.middle-form-top {
+    width: 350px;
+    height: 100px;
+    display: flex;
+    margin-left: 10vw;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    background: #EADDC4;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 2;
+    top: 100px;
+
+}
+
+.middle-form-top-header {
+    font-family: 'Montaga';
+    display: flex;
+    font-size: 60px;
+    font-weight: bold;
+    z-index: 2;
+    padding-left: 1vw;
+    padding-top: 10px;
+    position: absolute;
+}
+
+.middle-form-image2 {
+    display: flex;
+    z-index: 2;
+    margin-left: 70px;
+}
+
+.middle-form-image2 img {
+    width: 50vw;
+    min-width: 500px;
+    height: auto;
+    filter: drop-shadow(0px 10px 10px rgba(0, 0, 0, 0.3));
+}
+
 .middle-form {
-    width: 1200px;
-    max-height: 450px;
-    min-height: 450px;
+    width: 80vw;
+    min-width: 800px;
+    height: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -129,11 +95,11 @@ html, body {
 }
 
 .middle-form-header {
-    width: 70%;
+    width: 55vw;
+    min-width: 550px;
     font-family: 'Montaga';
     display: flex;
-    justify-content: space-between;
-    padding: 0 100px;
+    padding: 0 75px;
     font-size: 30px;
     font-weight: bold;
     position: relative;
@@ -141,13 +107,14 @@ html, body {
 }
 
 .middle-form-2 {
-    margin-top: 15px;
-    width: 1000px;
-    max-height: 290px;
-    min-height: 290px;
+    width: 70vw;
+    min-width: 700px;
+    max-height: 315px;
+    min-height: 315px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     padding: 20px;
     background: #DACDB5;
     border-radius: 15px;
@@ -161,7 +128,7 @@ html, body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    z-index: 4;
+    top: 5px;
 
 }
 
@@ -202,6 +169,27 @@ html, body {
     text-align: right;
 }
 
+.column-header-id {
+    width: 150px;
+    text-align: left;
+    margin-left: 1vw;
+}
+
+.column-header-name {
+    width: 400px;
+    text-align: left;
+}
+
+.column-header-email {
+    width: 550px;
+    text-align: left;
+}
+
+.column-header-wallet {
+    width: 100px;
+    text-align: left;
+}
+
 .middle-form-body {
     display: flex;
     flex-direction: column;
@@ -218,29 +206,6 @@ html, body {
     margin-bottom: 30px;
 }
 
-.logo {
-    color: #ffffff;
-    margin: 0;
-    font-family: 'Monsieur La Doulaise';
-    font-size: 75px;
-    stroke: none;
-    font-weight: 75;
-    text-decoration: none;
-    text-underline: none;
-}
-
-.login-text {
-    color: #ffffff;
-    margin: 0;
-    font-family: 'Montez';
-    font-size: 60px;
-    stroke: none;
-    font-weight: 75;
-}
-
-.login-text:hover {
-    color: #357abd;
-}
 
 :root {
     --brown-dark: #5D3C31;

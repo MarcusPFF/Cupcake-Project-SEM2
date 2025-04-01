@@ -47,8 +47,9 @@ public class RoutingController {
 
     public static void showCustomersPage(Context ctx) {
         try {
+            String username = ctx.sessionAttribute("username");
             List<Customer> customers = customerMapper.getAllCustomers(connectionPool);
-            ctx.render("/customers.html", Map.of("customers", customers));
+            ctx.render("/customers.html", Map.of("customers", customers, "username", username));
 
         } catch (DatabaseException e) {
             e.printStackTrace();
@@ -57,9 +58,6 @@ public class RoutingController {
 
     private static void showOrdersPage(Context ctx) {
         String username = ctx.sessionAttribute("username");
-        if (username == null) {
-            username = "Guest";
-        }
         ctx.render("/orders.html", Map.of("username", username));
     }
 
@@ -109,9 +107,10 @@ public class RoutingController {
     private static void showIndexPage(Context ctx) {
         String username = ctx.sessionAttribute("username");
         if (username == null) {
-            username = "Guest";
+            ctx.render("/index.html");
+        } else {
+            ctx.render("/index.html", Map.of("username", username));
         }
-        ctx.render("/index.html", Map.of("username", username));
     }
 
     private static void handleIndex(Context ctx) {

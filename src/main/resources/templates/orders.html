@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../public/css/stylesindex.css" th:href="@{/css/stylesorders.css}" rel="stylesheet"/>
+    <link href="../public/css/stylesheadermenu.css" th:href="@{/css/stylesheadermenu.css}" rel="stylesheet"/>
     <script th:src="@{/js/quantityCounter.js}"></script>
 </head>
 <body>
@@ -23,7 +24,7 @@
         <div class="loggedin" th:if="${username}">
             <div class="admin" th:if="${username == 'admin'}">
                 <div class="customer-text">
-                    <a th:href="@{/customer}" class="login-link">Kunder</a>
+                    <a th:href="@{/customers}" class="login-link">Kunder</a>
                 </div>
             </div>
             <div class="order-text">
@@ -44,9 +45,9 @@
              alt="Shopping Cart">
     </div>
 </div>
-<div class="middle-order-container">
-    <div class="middle-form-order">
-        <div class="middle-form-order-header">
+<div class="middle-top-container">
+    <div class="middle-form-top">
+        <div class="middle-form-top-header">
             <div class="loggedin" th:unless="${username == 'admin'}">
                 <h4-Order>Dine Ordre</h4-Order>
             </div>
@@ -62,10 +63,10 @@
 <div class="middle-container">
     <div class="middle-form">
         <div class="middle-form-header">
-            <h4-ID>Order nr</h4-ID>
-            <h4-Name>Status</h4-Name>
-            <h4-Email>Dato</h4-Email>
-            <h4-Wallet>Total</h4-Wallet>
+            <h4 class="column-header-nr">Order nr</h4>
+            <h4 class="column-header-status">Status</h4>
+            <h4 class="column-header-date">Dato</h4>
+            <h4 class="column-header-total">Total</h4>
         </div>
         <div class="middle-form-2">
             <div class="order-list">
