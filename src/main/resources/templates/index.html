@@ -52,7 +52,6 @@
             <div class="loggedin" th:if="${username}">
                 <div class="shopping-cart-popup">
                     <ul>
-                        <!-- Iterer over cupcakes i indkøbskurven -->
                         <li th:each="cupcake : ${cart}">
                             <span th:text="${cupcake.bottomFlavour}">Bund</span> -
                             <span th:text="${cupcake.toppingFlavour}">Topping</span> :
