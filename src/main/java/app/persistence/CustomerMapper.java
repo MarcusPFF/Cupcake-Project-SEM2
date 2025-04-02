@@ -16,9 +16,7 @@ public class CustomerMapper {
 
     //Til signup
     public void addNewCustomer(ConnectionPool connectionPool, String email, String name, String password, float wallet) throws DatabaseException {
-        String sql = "INSERT INTO cupcake_customers (customer_email, customer_name, customer_password, customer_wallet) "
-                + "VALUES (?, ?, ?,?) "
-                + "ON CONFLICT (customer_email) DO NOTHING;";
+        String sql = "INSERT INTO cupcake_customers (customer_email, customer_name, customer_password, customer_wallet) " + "VALUES (?, ?, ?,?) " + "ON CONFLICT (customer_email) DO NOTHING;";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -113,8 +111,7 @@ public class CustomerMapper {
         List<Customer> customers = new ArrayList<>();
         String sql = "SELECT customer_id, customer_email, customer_name, customer_password, customer_wallet FROM cupcake_customers;";
 
-        try (Connection connection = connectionPool.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
+        try (Connection connection = connectionPool.getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -134,8 +131,7 @@ public class CustomerMapper {
     public void removeCustomerById(ConnectionPool connectionPool, int customerId) throws DatabaseException {
         String sql = "DELETE FROM cupcake_customers WHERE customer_id = ?;";
 
-        try (Connection connection = connectionPool.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
+        try (Connection connection = connectionPool.getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
 
             ps.setInt(1, customerId);
             int rowsAffected = ps.executeUpdate();
