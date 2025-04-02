@@ -154,6 +154,7 @@ public class RoutingController {
     }
 
     private static void handleCart(Context ctx) {
+        String username = ctx.sessionAttribute("username");
         String bottomIdString = ctx.formParam("bottomId");
         String toppingIdString = ctx.formParam("toppingId");
         String quantityString = ctx.formParam("quantity");
@@ -162,13 +163,20 @@ public class RoutingController {
         int toppingId = Integer.parseInt(toppingIdString);
         int quantity = Integer.parseInt(quantityString);
 
+        if (username == null) {
+            ctx.redirect("index?error=mustbeloggedin");
+        }
+        if (quantity <= 0) {
+            ctx.redirect("index?error=mustbeabovezero");
+            return;
+        }
         try {
             //Getting the top and bottom flavour from database
             String bottomFlavour = cupcakeMapper.getBottomFlavourFromBottomId(connectionPool, bottomId);
             String toppingFlavour = cupcakeMapper.getToppingFlavourFromToppingId(connectionPool, toppingId);
 
             //Calculating one cupcake price and multiply by quantity
-            float oneCupcakePrice = cupcakeMapper.executeGetTotalCupcakePrice(connectionPool, bottomId, toppingId);
+            float oneCupcakePrice = cupcakeMapper.executeGetTotalCupcakePrice(connectionPool, toppingId, bottomId);
             float totalCupcakePrice = oneCupcakePrice * quantity;
 
             Cupcakes cupcakes = new Cupcakes(bottomFlavour, toppingFlavour, quantity, totalCupcakePrice);

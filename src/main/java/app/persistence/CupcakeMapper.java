@@ -62,6 +62,7 @@ public class CupcakeMapper {
                     float bottomPrice = rs.getFloat("bottom_price");
                     return bottomPrice;
                 } else {
+                    System.out.println(bottomId);
                     throw new DatabaseException(null, "Could not find bottomPrice for the given flavourId.");
                 }
             }
