@@ -3,33 +3,28 @@ package app.persistence;
 import app.entities.Cupcakes;
 import app.entities.Order;
 import app.exceptions.DatabaseException;
-import com.fasterxml.jackson.databind.DatabindException;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.UUID;
 
 
 public class OrderMapper {
 
 
     public int addNewOrder(ConnectionPool connectionPool, int customerId) throws DatabaseException {
-        // Modified SQL to return the generated order_id in one atomic operation
         String sql = "INSERT INTO customer_orders(customer_id, order_date, status_id) "
                 + "VALUES (?, CURRENT_DATE, 1) "
-                + "RETURNING order_id";  // <--- Critical fix here
+                + "RETURNING order_id";
 
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {  // Single statement
+             PreparedStatement ps = connection.prepareStatement(sql)) {
 
             ps.setInt(1, customerId);
 
-            try (ResultSet rs = ps.executeQuery()) {  // Use executeQuery() with RETURNING
+            try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt("order_id");  // Directly return the generated ID
+                    return rs.getInt("order_id");
                 } else {
-                    System.out.println("!virker");
                     return 0;
                 }
             }
@@ -110,7 +105,6 @@ public class OrderMapper {
 
     public void executeConfirmOrder(ConnectionPool connectionPool, int customerId, ArrayList<Cupcakes> cart) throws DatabaseException {
         int orderId = addNewOrder(connectionPool, customerId);
-        System.out.println("Order ID: " + orderId);
         if (orderId != 0) {
             addNewOrderHistories(connectionPool, customerId, orderId, cart);
         }

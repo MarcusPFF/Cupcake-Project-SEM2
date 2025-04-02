@@ -62,8 +62,8 @@ public class RoutingController {
             return;
         }
         try {
-            customerId = customerMapper.getCustomerIdFromEmail(connectionPool, email); //den her
-            orderMapper.executeConfirmOrder(connectionPool, customerId, cart); //den her
+            customerId = customerMapper.getCustomerIdFromEmail(connectionPool, email);
+            orderMapper.executeConfirmOrder(connectionPool, customerId, cart);
             ctx.sessionAttribute("cart", null);
 
         } catch (DatabaseException e) {
