@@ -1,20 +1,22 @@
 package app.controllers;
 
-import app.persistence.CustomerMapper;
+import app.entities.Cupcakes;
 import app.entities.Customer;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
+import app.persistence.CupcakeMapper;
+import app.persistence.CustomerMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
+
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-
 import java.util.Map;
 
 public class RoutingController {
     private static CustomerMapper customerMapper = new CustomerMapper();
     private static ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static CupcakeMapper cupcakeMapper = new CupcakeMapper();
 
 
     public static void routes(Javalin app) {
@@ -32,7 +34,6 @@ public class RoutingController {
 
         //Index
         app.get("/index", ctx -> showIndexPage(ctx));
-        app.post("/index", ctx -> handleIndex(ctx));
 
         //Orders
         app.get("/orders", ctx -> showOrdersPage(ctx));
@@ -47,6 +48,7 @@ public class RoutingController {
         app.post("/customers", ctx -> handleCustomerDeletion(ctx));
 
     }
+
     public static void handleCustomerDeletion(Context ctx) {
         String customerIdString = ctx.formParam("customerId");
 
@@ -124,15 +126,16 @@ public class RoutingController {
 
     private static void showIndexPage(Context ctx) {
         String username = ctx.sessionAttribute("username");
+        List<Cupcakes> cart = ctx.sessionAttribute("cart");
+        if (cart == null) {
+            cart = new ArrayList<>();
+        }
         if (username == null) {
             ctx.render("/index.html");
         } else {
-            ctx.render("/index.html", Map.of("username", username));
+            ctx.render("/index.html", Map.of("username", username, "cart", cart));
+
         }
-    }
-
-    private static void handleIndex(Context ctx) {
-
     }
 
     private static void handleSignup(Context ctx) {
@@ -151,11 +154,33 @@ public class RoutingController {
     }
 
     private static void handleCart(Context ctx) {
-        String bottomId = ctx.formParam("bottomId");
-        String toppingId = ctx.formParam("toppingId");
+        String bottomIdString = ctx.formParam("bottomId");
+        String toppingIdString = ctx.formParam("toppingId");
         String quantityString = ctx.formParam("quantity");
+
+        int bottomId = Integer.parseInt(bottomIdString);
+        int toppingId = Integer.parseInt(toppingIdString);
         int quantity = Integer.parseInt(quantityString);
 
-        ctx.redirect("/cart");
+        try {
+            //Getting the top and bottom flavour from database
+            String bottomFlavour = cupcakeMapper.getBottomFlavourFromBottomId(connectionPool, bottomId);
+            String toppingFlavour = cupcakeMapper.getToppingFlavourFromToppingId(connectionPool, toppingId);
+
+            //Calculating one cupcake price and multiply by quantity
+            float oneCupcakePrice = cupcakeMapper.executeGetTotalCupcakePrice(connectionPool, bottomId, toppingId);
+            float totalCupcakePrice = oneCupcakePrice * quantity;
+
+            Cupcakes cupcakes = new Cupcakes(bottomFlavour, toppingFlavour, quantity, totalCupcakePrice);
+            List<Cupcakes> cart = ctx.sessionAttribute("cart");
+            if (cart == null) {
+                cart = new ArrayList<>();
+            }
+            cart.add(cupcakes);
+            ctx.sessionAttribute("cart", cart);
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
+        showIndexPage(ctx);
     }
 }

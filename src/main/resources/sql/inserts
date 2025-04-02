@@ -1,0 +1,19 @@
+INSERT INTO cupcake_bottoms (bottom_id, Bottom_flavour, bottom_price)
+VALUES
+    (1, 'Chocolate', 5.00),
+    (2, 'Vanilla', 5.00),
+    (3, 'Nutmeg', 5.00),
+    (4, 'Pistacio', 6.00),
+    (5, 'Almond', 7.00);
+
+INSERT INTO cupcake_toppings (topping_id, topping_flavour, topping_price)
+VALUES
+    (1, 'Chocolate', 5.00),
+    (2, 'Blueberry', 5.00),
+    (3, 'Raspberry', 5.00),
+    (4, 'Crispy', 6.00),
+    (5, 'Strawberry', 6.00),
+    (6, 'Rum/Raisin', 7.00),
+    (7, 'Orange', 8.00),
+    (8, 'Lemon', 8.00),
+    (9, 'Blue cheese', 9.00);

@@ -2,10 +2,11 @@ package app;
 
 import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
+import app.controllers.RoutingController;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
-import app.controllers.RoutingController;
+
 import java.util.logging.Logger;
 
 
@@ -17,6 +18,7 @@ public class Main {
     private static final String DB = "Cupcake";
 
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance(USER, PASSWORD, URL, DB);
+
     public static void main(String[] args) {
         // Initializing Javalin and Jetty webserver
 
