@@ -16,6 +16,15 @@ LOGIN AND REGISTER STYLING SHEET
     src: url('public/css/fonts/Montaga-Regular.ttf') format('truetype');
 }
 
+.error-message {
+    position: absolute;
+    top: 300px;
+    left: 0;
+    color: red;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+}
 
 .middle-container {
     display: flex;

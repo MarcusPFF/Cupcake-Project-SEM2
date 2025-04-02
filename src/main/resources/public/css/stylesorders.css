@@ -27,7 +27,7 @@ ORDERS PAGE STYLING SHEET
     top: 50px;
 }
 
-.middle-order-container {
+.middle-top-container {
     position: relative;
     display: flex;
     align-items: flex-start;
@@ -37,7 +37,7 @@ ORDERS PAGE STYLING SHEET
 }
 
 
-.middle-form-order {
+.middle-form-top {
     width: 350px;
     height: 100px;
     display: flex;
@@ -54,7 +54,7 @@ ORDERS PAGE STYLING SHEET
 
 }
 
-.middle-form-order-header {
+.middle-form-top-header {
     font-family: 'Montaga';
     display: flex;
     font-size: 60px;
@@ -81,7 +81,7 @@ ORDERS PAGE STYLING SHEET
 .middle-form {
     width: 80vw;
     min-width: 800px;
-    height: 450px;
+    height: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -108,7 +108,6 @@ ORDERS PAGE STYLING SHEET
 }
 
 .middle-form-2 {
-    margin-top: 30px;
     width: 70vw;
     min-width: 700px;
     max-height: 315px;
@@ -116,8 +115,7 @@ ORDERS PAGE STYLING SHEET
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    align-items: stretch;
     padding: 20px;
     background: #DACDB5;
     border-radius: 15px;
@@ -130,6 +128,7 @@ ORDERS PAGE STYLING SHEET
     width: 100%;
     display: flex;
     flex-direction: column;
+    top: 5px;
 }
 
 .order-row {
