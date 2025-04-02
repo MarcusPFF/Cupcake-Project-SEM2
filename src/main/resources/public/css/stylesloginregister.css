@@ -26,6 +26,16 @@ LOGIN AND REGISTER STYLING SHEET
     text-align: center;
 }
 
+.error-message2 {
+    position: absolute;
+    top: 375px;
+    left: 0;
+    color: red;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+}
+
 .middle-container {
     display: flex;
     justify-content: center;
@@ -107,6 +117,10 @@ input[type="email"]:focus {
 }
 
 .form-footer {
+    font-size: 24px;
+}
+
+form-footer2 {
     font-size: 24px;
 }
 

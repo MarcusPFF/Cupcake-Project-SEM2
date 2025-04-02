@@ -1,11 +1,11 @@
 package app.controllers;
 
-import app.entities.Cupcakes;
-import app.entities.Customer;
+import app.entities.*;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.CupcakeMapper;
 import app.persistence.CustomerMapper;
+import app.persistence.OrderMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
@@ -17,6 +17,7 @@ public class RoutingController {
     private static CustomerMapper customerMapper = new CustomerMapper();
     private static ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static CupcakeMapper cupcakeMapper = new CupcakeMapper();
+    private static OrderMapper orderMapper = new OrderMapper();
 
 
     public static void routes(Javalin app) {
@@ -47,6 +48,28 @@ public class RoutingController {
         //delete customer
         app.post("/customers", ctx -> handleCustomerDeletion(ctx));
 
+        //confirm order
+        app.post("/confirmorder", ctx -> handleConfirmOrder(ctx));
+    }
+
+    public static void handleConfirmOrder(Context ctx) {
+        String email = ctx.sessionAttribute("email");
+        ArrayList<Cupcakes> cart = ctx.sessionAttribute("cart");
+        int customerId = 0;
+
+        if (cart == null || cart.isEmpty()) {
+            ctx.redirect("/index?error=cartEmpty");
+            return;
+        }
+        try {
+            customerId = customerMapper.getCustomerIdFromEmail(connectionPool, email);
+            orderMapper.executeConfirmOrder(connectionPool, customerId, cart);
+            ctx.sessionAttribute("cart", null);
+
+        } catch (DatabaseException e) {
+            throw new RuntimeException(e);
+        }
+        showIndexPage(ctx);
     }
 
     public static void handleCustomerDeletion(Context ctx) {
@@ -77,8 +100,28 @@ public class RoutingController {
     }
 
     private static void showOrdersPage(Context ctx) {
+        String email = ctx.sessionAttribute("email");
         String username = ctx.sessionAttribute("username");
-        ctx.render("/orders.html", Map.of("username", username));
+        try {
+            List<Order> orders = new ArrayList<>();
+
+            int customerId;
+            if ("admin".equals(username)) {
+                orders = orderMapper.getListOfAllCustomersOrders(connectionPool);
+
+            } else {
+                customerId = customerMapper.getCustomerIdFromEmail(connectionPool, email);
+                orders = orderMapper.getListOfOneCustomersOrders(connectionPool, customerId);
+            }
+            if (orders.isEmpty()) {
+                ctx.redirect("/index?error=ordersEmpty");
+            } else {
+                ctx.render("orders.html", Map.of("username", username, "orders", orders));
+            }
+
+        } catch (DatabaseException e) {
+            ctx.status(500).result("Error retrieving orders: " + e.getMessage());
+        }
     }
 
     private static void showLoginPage(Context ctx) {
@@ -91,19 +134,21 @@ public class RoutingController {
         String password = ctx.formParam("password");
 
         try {
-            boolean validateUser = customerMapper.verifyUserCredentials(ConnectionPool.getInstance(), username, password);
+            boolean validateUser = customerMapper.verifyUserCredentials(connectionPool, username, password);
             if (validateUser) {
                 if (username.contains("@")) {
                     String email = username;
-                    username = customerMapper.getCustomerNameFromEmail(ConnectionPool.getInstance(), email);
-                    userId = customerMapper.getCustomerIdFromEmail(ConnectionPool.getInstance(), email);
+                    username = customerMapper.getCustomerNameFromEmail(connectionPool, email);
+                    userId = customerMapper.getCustomerIdFromEmail(connectionPool, email);
                 } else {
-                    String email = customerMapper.getEmailFromCustomerName(ConnectionPool.getInstance(), username);
-                    userId = customerMapper.getCustomerIdFromEmail(ConnectionPool.getInstance(), email);
+                    String email = customerMapper.getEmailFromCustomerName(connectionPool, username);
+                    userId = customerMapper.getCustomerIdFromEmail(connectionPool, email);
                 }
 
                 ctx.sessionAttribute("username", username);
                 ctx.sessionAttribute("customerId", userId);
+                String email = customerMapper.getEmailFromCustomerName(connectionPool, username);
+                ctx.sessionAttribute("email", email);
                 ctx.sessionAttribute("cart", null);
                 showIndexPage(ctx);
             } else {
@@ -131,11 +176,16 @@ public class RoutingController {
         if (cart == null) {
             cart = new ArrayList<>();
         }
+        double totalOrderPrice = 0.0;
+        for (Cupcakes cupcake : cart) {
+            totalOrderPrice += cupcake.getTotalCupcakePrice();
+        }
+        ctx.sessionAttribute("totalOrderPrice", totalOrderPrice);
+
         if (username == null) {
             ctx.render("/index.html");
         } else {
-            ctx.render("/index.html", Map.of("username", username, "cart", cart));
-
+            ctx.render("/index.html", Map.of("username", username, "cart", cart, "totalOrderPrice", totalOrderPrice));
         }
     }
 
@@ -145,12 +195,20 @@ public class RoutingController {
         String password = ctx.formParam("password");
         float wallet = 0;
         try {
-            customerMapper.addNewCustomer(ConnectionPool.getInstance(), email, username, password, wallet);
+            if (username.equals("admin")) {
+                ctx.redirect("signup?error=cannotloginasadmin");
+            } else {
+                boolean succes = customerMapper.addNewCustomer(connectionPool, email, username, password, wallet);
+                if (succes == true) {
+                    ctx.sessionAttribute("username", username);
+                    ctx.sessionAttribute("email", email);
+                } else {
+                    ctx.redirect("signup?error=usernamealreadyexists");
+                }
+            }
         } catch (DatabaseException e) {
             e.printStackTrace();
-
         }
-        ctx.sessionAttribute("username", username);
         ctx.sessionAttribute("cart", null);
         showIndexPage(ctx);
     }
@@ -181,12 +239,14 @@ public class RoutingController {
             float oneCupcakePrice = cupcakeMapper.executeGetTotalCupcakePrice(connectionPool, toppingId, bottomId);
             float totalCupcakePrice = oneCupcakePrice * quantity;
 
-            Cupcakes cupcakes = new Cupcakes(bottomFlavour, toppingFlavour, quantity, totalCupcakePrice);
+            Cupcakes cupcakes = new Cupcakes(new Bottom(bottomFlavour, bottomId), new Topping(toppingFlavour, toppingId), quantity, totalCupcakePrice);
             List<Cupcakes> cart = ctx.sessionAttribute("cart");
             if (cart == null) {
                 cart = new ArrayList<>();
             }
             cart.add(cupcakes);
+
+
             ctx.sessionAttribute("cart", cart);
         } catch (DatabaseException e) {
             e.printStackTrace();

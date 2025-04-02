@@ -1,33 +1,32 @@
 package app.entities;
 
 public class Cupcakes {
-    private String bottomFlavour;
-    private String toppingFlavour;
+    private Bottom bottom;
+    private Topping topping;
     private int quantity;
     private float totalCupcakePrice;
 
-    public Cupcakes(String bottomFlavour, String toppingFlavour, int quantity, float totalCupcakePrice) {
-        this.bottomFlavour = bottomFlavour;
-        this.toppingFlavour = toppingFlavour;
+    public Cupcakes(Bottom bottom, Topping topping, int quantity, float totalCupcakePrice) {
+        this.bottom = bottom;
+        this.topping = topping;
         this.quantity = quantity;
         this.totalCupcakePrice = totalCupcakePrice;
     }
 
-
-    public String getBottomFlavour() {
-        return bottomFlavour;
+    public Bottom getBottom() {
+        return bottom;
     }
 
-    public void setBottomFlavour(String bottomFlavour) {
-        this.bottomFlavour = bottomFlavour;
+    public void setBottom(Bottom bottom) {
+        this.bottom = bottom;
     }
 
-    public String getToppingFlavour() {
-        return toppingFlavour;
+    public Topping getTopping() {
+        return topping;
     }
 
-    public void setToppingFlavour(String toppingFlavour) {
-        this.toppingFlavour = toppingFlavour;
+    public void setTopping(Topping topping) {
+        this.topping = topping;
     }
 
     public int getQuantity() {
@@ -49,8 +48,8 @@ public class Cupcakes {
     @Override
     public String toString() {
         return "Cupcakes{" +
-                "bottomFlavour='" + bottomFlavour + '\'' +
-                ", toppingFlavour='" + toppingFlavour + '\'' +
+                "bottomFlavour='" + bottom + '\'' +
+                ", toppingFlavour='" + topping + '\'' +
                 ", quantity=" + quantity +
                 ", totalCupcakePrice=" + totalCupcakePrice +
                 '}';

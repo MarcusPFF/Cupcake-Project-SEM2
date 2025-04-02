@@ -17,3 +17,10 @@ VALUES
     (7, 'Orange', 8.00),
     (8, 'Lemon', 8.00),
     (9, 'Blue cheese', 9.00);
+
+    INSERT INTO order_status (status_name)
+    VALUES
+      ('Pending'),
+      ('Shipped'),
+      ('Delivered'),
+      ('Cancelled');
