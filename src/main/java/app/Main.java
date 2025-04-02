@@ -32,6 +32,7 @@ public class Main {
         app.get("/", ctx -> ctx.render("index.html"));
         RoutingController.routes(app);
     }
+
 }
 
 

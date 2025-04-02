@@ -70,11 +70,11 @@
         </div>
         <div class="middle-form-2">
             <div class="order-list">
-                <div class="order-row" th:each="order : ${order}">
-                    <div class="order-nr" th:text="${order.order_id}"></div>
-                    <div class="order-status" th:text="${order.order_status}"></div>
-                    <div class="order-date" th:text="${order.order_date}"></div>
-                    <div class="order-total" th:text="${'$' + order.order_totalPrice}"></div>
+                <div class="order-row" th:each="order : ${orders}">
+                    <div class="order-nr" th:text="${order.orderId}"></div>
+                    <div class="order-status" th:text="${order.status}"></div>
+                    <div class="order-date" th:text="${order.date}"></div>
+                    <div class="order-total" th:text="${order.totalOrderPrice}"></div>
                 </div>
             </div>
         </div>

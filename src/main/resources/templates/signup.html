@@ -43,11 +43,17 @@
                    required
                    minlength="3">
 
+
             <div class="login-form-button">
                 <a th:href="@{/login}" class="back-button">Login</a>
                 <button type="submit" class="login-button">Registrer</button>
             </div>
         </form>
+        <div class="form-footer2">
+            <div th:if="${param.error}">
+                <p class="error-message2">Brugernavn findes allerede</p>
+            </div>
+        </div>
     </div>
 </div>
 </div>
