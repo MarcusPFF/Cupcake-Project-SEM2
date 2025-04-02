@@ -39,12 +39,34 @@
                 </div>
             </div>
         </div>
-        <img th:src="@{/images/shoppingcart.png}"
-             src="/images/shoppingcart.png"
-             class="shopping-cart-icon"
-             alt="Shopping Cart">
+        <div class="shopping-cart-container">
+            <img th:src="@{/images/shoppingcart.png}"
+                 src="/images/shoppingcart.png"
+                 class="shopping-cart-icon"
+                 alt="Shopping Cart">
+            <div class="loggedin" th:if="${username} == null">
+                <div class="shopping-cart-popup">
+                    <p>Du er nødt til at logge ind</p>
+                </div>
+            </div>
+            <div class="loggedin" th:if="${username}">
+                <div class="shopping-cart-popup">
+                    <ul>
+                        <!-- Iterer over cupcakes i indkøbskurven -->
+                        <li th:each="cupcake : ${cart}">
+                            <span th:text="${cupcake.bottomFlavour}">Bund</span> -
+                            <span th:text="${cupcake.toppingFlavour}">Topping</span> :
+                            <span th:text="${cupcake.quantity}">Antal</span> stk. -
+                            <span th:text="${cupcake.totalCupcakePrice}">Pris</span> kr.
+                        </li>
+                    </ul>
+                    <button>Bekræft Køb</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
 <div class="image-container">
     <div class="middle-form-image">
         <img th:src="@{/images/KokCupCakeProjekt.png}" class="kok" alt="nigeriankok">
