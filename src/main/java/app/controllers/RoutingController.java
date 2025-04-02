@@ -104,6 +104,7 @@ public class RoutingController {
 
                 ctx.sessionAttribute("username", username);
                 ctx.sessionAttribute("customerId", userId);
+                ctx.sessionAttribute("cart", null);
                 showIndexPage(ctx);
             } else {
                 ctx.redirect("/login?error=wrongcredentials");
@@ -150,6 +151,7 @@ public class RoutingController {
 
         }
         ctx.sessionAttribute("username", username);
+        ctx.sessionAttribute("cart", null);
         showIndexPage(ctx);
     }
 
