@@ -6,6 +6,7 @@ import app.controllers.RoutingController;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
+import app.controllers.RoutingController;
 
 import java.util.logging.Logger;
 
@@ -29,7 +30,7 @@ public class Main {
         }).start(7070);
 
         // Routing
-        app.get("/", ctx -> ctx.render("index.html"));
+        app.get("/", ctx -> RoutingController.getShowIndexPage(ctx));
         RoutingController.routes(app);
     }
 

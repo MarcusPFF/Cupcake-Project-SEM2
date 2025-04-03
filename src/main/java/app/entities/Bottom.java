@@ -24,4 +24,12 @@ public class Bottom {
         this.flavour = flavour;
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Bottom{" +
+                "flavour='" + flavour + '\'' +
+                ", id=" + id +
+                '}';
+    }
 }

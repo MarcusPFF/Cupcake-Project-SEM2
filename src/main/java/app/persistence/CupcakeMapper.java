@@ -1,10 +1,14 @@
 package app.persistence;
 
+import app.entities.Bottom;
+import app.entities.Topping;
 import app.exceptions.DatabaseException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CupcakeMapper {
 
@@ -130,6 +134,61 @@ public class CupcakeMapper {
         }
 
     }
+
+    public static List<Bottom> getAllBottoms(ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "SELECT * FROM cupcake_bottoms";
+        List<Bottom> bottoms = new ArrayList<>();
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                int bottomId = rs.getInt("bottom_id");
+                String flavour = rs.getString("bottom_flavour");
+
+                bottoms.add(new Bottom(flavour, bottomId));
+            }
+
+            if (bottoms.isEmpty()) {
+                throw new DatabaseException(null, "No bottoms found in database");
+            }
+
+            return bottoms;
+
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Could not retrieve bottoms from database");
+        }
+    }
+
+    public static List<Topping> getAllToppings(ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "SELECT * FROM cupcake_toppings";
+        List<Topping> toppings = new ArrayList<>();
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                int bottomId = rs.getInt("topping_id");
+                String flavour = rs.getString("topping_flavour");
+                String imgName = rs.getString("img_name");
+
+                toppings.add(new Topping(flavour, bottomId, imgName));
+            }
+
+            if (toppings.isEmpty()) {
+                throw new DatabaseException(null, "No bottoms found in database");
+            }
+
+            return toppings;
+
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Could not retrieve bottoms from database");
+        }
+    }
+
+
 
     public float executeGetTotalCupcakePrice(ConnectionPool connectionPool, int toppingId, int bottomId) throws DatabaseException {
         float toppingPrice = getCupcakeToppingPriceFromToppingId(connectionPool, toppingId);

@@ -145,4 +145,36 @@ public class CustomerMapper {
             throw new DatabaseException(ex, "Could not delete customer from database");
         }
     }
+
+    public float getWalletFromEmail(ConnectionPool connectionPool, String email) throws DatabaseException {
+        float wallet = 0;
+        String sql = "SELECT customer_wallet FROM cupcake_customers WHERE customer_email = ?;";
+
+        try (Connection connection = connectionPool.getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+              wallet = rs.getFloat("customer_wallet");
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Could not fetch customer list from database.");
+        }
+        return wallet;
+    }
+
+    public static void setWallet(ConnectionPool connectionPool, double wallet, String email) throws DatabaseException {
+        String sql = "UPDATE cupcake_customers SET customer_wallet = ? WHERE customer_email = ?;";
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setDouble(1, wallet);
+                ps.setString(2, email);
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected == 0) {
+                    System.out.println("Customer already exists or insert failed.");
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Could not get Customer from database");
+        }
+    }
 }
