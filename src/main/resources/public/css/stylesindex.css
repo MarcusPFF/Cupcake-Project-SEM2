@@ -142,7 +142,7 @@ INDEX PAGE STYLING SHEET
 
 .muffin-item {
     min-height: 400px;
-    min-width: 200px;
+    min-width: 205px;
     width: 10vw;
     max-width: 225px;
     flex-direction: column;

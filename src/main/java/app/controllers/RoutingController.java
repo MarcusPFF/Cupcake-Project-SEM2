@@ -48,6 +48,8 @@ public class RoutingController {
         //delete customer
         app.post("/customers", ctx -> handleCustomerDeletion(ctx));
 
+        app.post("/orders", ctx -> handleOrderDeletion(ctx));
+
         //confirm order
         app.post("/confirmorder", ctx -> handleConfirmOrder(ctx));
     }
@@ -55,16 +57,22 @@ public class RoutingController {
     public static void handleConfirmOrder(Context ctx) {
         String email = ctx.sessionAttribute("email");
         ArrayList<Cupcakes> cart = ctx.sessionAttribute("cart");
+        double totalPrice = ctx.sessionAttribute("totalOrderPrice");
         int customerId = 0;
 
         if (cart == null || cart.isEmpty()) {
             ctx.redirect("/index?error=cartEmpty");
             return;
         }
+
         try {
-            customerId = customerMapper.getCustomerIdFromEmail(connectionPool, email);
-            orderMapper.executeConfirmOrder(connectionPool, customerId, cart);
-            ctx.sessionAttribute("cart", null);
+            double wallet = customerMapper.getWalletFromEmail(connectionPool, email);
+            if (totalPrice <= wallet) {
+                customerId = customerMapper.getCustomerIdFromEmail(connectionPool, email);
+                orderMapper.executeConfirmOrder(connectionPool, customerId, cart);
+                ctx.sessionAttribute("cart", null);
+                customerMapper.setWallet(connectionPool, (wallet-totalPrice), email);
+            }
 
         } catch (DatabaseException e) {
             throw new RuntimeException(e);
@@ -77,13 +85,30 @@ public class RoutingController {
 
         try {
             int customerId = Integer.parseInt(customerIdString);
-            customerMapper.removeCustomerById(connectionPool, customerId);
+            if (customerId != 1) {
+                customerMapper.removeCustomerById(connectionPool, customerId);
+            }
             showCustomersPage(ctx);
 
         } catch (NumberFormatException e) {
             showCustomersPage(ctx);
         } catch (DatabaseException e) {
             showCustomersPage(ctx);
+        }
+    }
+
+    public static void handleOrderDeletion(Context ctx) {
+        String orderIdString = ctx.formParam("orderId");
+
+        try {
+            int orderId = Integer.parseInt(orderIdString);
+            orderMapper.executeRemoveOrderAndHistoryById(connectionPool, orderId);
+            showOrdersPage(ctx);
+
+        } catch (NumberFormatException e) {
+            showOrdersPage(ctx);
+        } catch (DatabaseException e) {
+            showOrdersPage(ctx);
         }
     }
 
@@ -171,10 +196,26 @@ public class RoutingController {
     }
 
     private static void showIndexPage(Context ctx) {
+        List<Topping> toppings = new ArrayList<>();
+        List<Bottom> bottoms = new ArrayList<>();
+        toppings = ctx.sessionAttribute("toppings");
+        bottoms = ctx.sessionAttribute("bottoms");
+        if (toppings == null || bottoms == null) {
+            try {
+                toppings = CupcakeMapper.getAllToppings(connectionPool);
+                bottoms = CupcakeMapper.getAllBottoms(connectionPool);
+                ctx.sessionAttribute("toppings", toppings);
+                ctx.sessionAttribute("bottoms", bottoms);
+            } catch (DatabaseException e) {
+                e.printStackTrace();
+            }
+        }
+
         String username = ctx.sessionAttribute("username");
         List<Cupcakes> cart = ctx.sessionAttribute("cart");
         if (cart == null) {
             cart = new ArrayList<>();
+            ctx.sessionAttribute("cart", cart);
         }
         double totalOrderPrice = 0.0;
         for (Cupcakes cupcake : cart) {
@@ -185,7 +226,7 @@ public class RoutingController {
         if (username == null) {
             ctx.render("/index.html");
         } else {
-            ctx.render("/index.html", Map.of("username", username, "cart", cart, "totalOrderPrice", totalOrderPrice));
+            ctx.render("/index.html");
         }
     }
 
@@ -251,6 +292,10 @@ public class RoutingController {
         } catch (DatabaseException e) {
             e.printStackTrace();
         }
+        showIndexPage(ctx);
+    }
+
+    public static void getShowIndexPage(Context ctx) {
         showIndexPage(ctx);
     }
 }

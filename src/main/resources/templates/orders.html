@@ -62,6 +62,15 @@
 </div>
 <div class="middle-container">
     <div class="middle-form">
+        <div class="removeCustomer">
+            <form method="post" th:action="@{/orders}" class="removeCustomerButton">
+                <input type = "text"
+                       name="orderId"
+                       class="order-id-input"
+                       placeholder="Indsæt OrdreNr."/>
+                <button type="submit" class="delete-customer-btn"> Slet order </button>
+            </form>
+        </div>
         <div class="middle-form-header">
             <h4 class="column-header-nr">Order nr</h4>
             <h4 class="column-header-status">Status</h4>

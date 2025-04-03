@@ -1,8 +1,8 @@
 ## Requirements for DoD
 
-[] - US-1: Som kunde kan jeg bestille og betale cupcakes med en valgfri bund og top, sådan at jeg senere kan køre forbi butikken i Olsker og hente min ordre.
+[X] - US-1: Som kunde kan jeg bestille og betale cupcakes med en valgfri bund og top, sådan at jeg senere kan køre forbi butikken i Olsker og hente min ordre.
 
-[] - US-2 Som kunde kan jeg oprette en konto/profil for at kunne betale og gemme en en ordre.
+[X] - US-2 Som kunde kan jeg oprette en konto/profil for at kunne betale og gemme en en ordre.
 
 [] - US-3: Som administrator kan jeg indsætte beløb på en kundes konto direkte i Postgres, så en kunde kan betale for sine ordrer.
 
