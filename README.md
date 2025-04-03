@@ -48,6 +48,7 @@ Det første kundemøde mundede ud i en række såkaldte user-stories. De beskriv
   - Thymeleaf template engine
   - Postgres Database
   - HTML og CSS
+  - Evt. JS
 
 ## Leverancer
 
