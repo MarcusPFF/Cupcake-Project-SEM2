@@ -53,13 +53,18 @@
                 <div class="shopping-cart-popup">
                     <ul>
                         <li th:each="cupcake : ${cart}">
-                            <span th:text="${cupcake.bottomFlavour}">Bund</span> -
-                            <span th:text="${cupcake.toppingFlavour}">Topping</span> :
+                            <span th:text="${cupcake.bottom.getFlavour()}">Bund</span> -
+                            <span th:text="${cupcake.topping.getFlavour()}">Topping</span> :
                             <span th:text="${cupcake.quantity}">Antal</span> stk. -
                             <span th:text="${cupcake.totalCupcakePrice}">Pris</span> kr.
                         </li>
+                        <li>
+                            <p>Total: <span th:text="${totalOrderPrice}"></span> kr. </p>
+                        </li>
                     </ul>
-                    <button>Bekræft Køb</button>
+                    <form method="post" th:action="@{/confirmorder}" class="confirm-order-form">
+                        <button class="confirm-order-button" type="submit">Bekræft køb</button>
+                    </form>
                 </div>
             </div>
         </div>

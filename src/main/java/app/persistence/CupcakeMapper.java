@@ -1,7 +1,6 @@
 package app.persistence;
 
 import app.exceptions.DatabaseException;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -62,6 +61,7 @@ public class CupcakeMapper {
                     float bottomPrice = rs.getFloat("bottom_price");
                     return bottomPrice;
                 } else {
+                    System.out.println(bottomId);
                     throw new DatabaseException(null, "Could not find bottomPrice for the given flavourId.");
                 }
             }

@@ -2,7 +2,6 @@ package app.persistence;
 
 import app.entities.Customer;
 import app.exceptions.DatabaseException;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +14,7 @@ public class CustomerMapper {
     private static Customer customer;
 
     //Til signup
-    public void addNewCustomer(ConnectionPool connectionPool, String email, String name, String password, float wallet) throws DatabaseException {
+    public boolean addNewCustomer(ConnectionPool connectionPool, String email, String name, String password, float wallet) throws DatabaseException {
         String sql = "INSERT INTO cupcake_customers (customer_email, customer_name, customer_password, customer_wallet) " + "VALUES (?, ?, ?,?) " + "ON CONFLICT (customer_email) DO NOTHING;";
 
         try (Connection connection = connectionPool.getConnection()) {
@@ -27,6 +26,9 @@ public class CustomerMapper {
                 int rowsAffected = ps.executeUpdate();
                 if (rowsAffected == 0) {
                     System.out.println("Customer already exists or insert failed.");
+                    return false;
+                } else {
+                    return true;
                 }
             }
         } catch (SQLException ex) {

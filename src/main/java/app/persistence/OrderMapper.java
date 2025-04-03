@@ -3,12 +3,7 @@ package app.persistence;
 import app.entities.Cupcakes;
 import app.entities.Order;
 import app.exceptions.DatabaseException;
-import org.postgresql.jdbc2.optional.ConnectionPool;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -17,42 +12,45 @@ public class OrderMapper {
 
 
     public int addNewOrder(ConnectionPool connectionPool, int customerId) throws DatabaseException {
-        String sql = "INSERT INTO customer_orders(customer_id, order_date, status_id) " + "VALUES (?, CURRENT_DATE, 1);";
+        String sql = "INSERT INTO customer_orders(customer_id, order_date, status_id) "
+                + "VALUES (?, CURRENT_DATE, 1) "
+                + "RETURNING order_id";
 
-        try (Connection connection = connectionPool.getConnection()) {
-            try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                ps.setInt(1, customerId);
-                int rowsAffected = ps.executeUpdate();
-                if (rowsAffected == 0) {
-                    System.out.println("Order could not be added");
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, customerId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("order_id");
+                } else {
+                    return 0;
                 }
-                ResultSet rs = ps.executeQuery();
-                return rs.getInt("order_id");
             }
+
         } catch (SQLException ex) {
-            throw new DatabaseException(ex, "Could not get orders from database");
+            throw new DatabaseException(ex, "Could not create order for customer: " + customerId);
         }
     }
 
     public void addNewOrderHistories(ConnectionPool connectionPool, int customerId, int orderId, ArrayList<Cupcakes> cart) throws DatabaseException {
 
-        String sql = "INSERT INTO customer_order_history(customer_id, order_id, bottom_id, topping_id, quantity, total_price) " + "VALUES (?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO customer_order_history(order_id, bottom_id, topping_id, quantity, total_price) " + "VALUES (?, ?, ?, ?, ?);";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 for (Cupcakes orderItem : cart) {
-                    ps.setInt(1, customerId);
-                    ps.setInt(2, orderId);
-                    ps.setString(3, orderItem.getBottomFlavour());
-                    ps.setString(4, orderItem.getToppingFlavour());
-                    ps.setInt(5, orderItem.getQuantity());
-                    ps.setFloat(6, orderItem.getTotalCupcakePrice());
+                    ps.setInt(1, orderId);
+                    ps.setInt(2, orderItem.getBottom().getId());
+                    ps.setInt(3, orderItem.getTopping().getId());
+                    ps.setInt(4, orderItem.getQuantity());
+                    ps.setFloat(5, orderItem.getTotalCupcakePrice());
                     int rowsAffected = ps.executeUpdate();
                     if (rowsAffected == 0) {
                         System.out.println("Order could not be added");
                     }
                 }
-
             }
         } catch (SQLException ex) {
             throw new DatabaseException(ex, "Could not get orders from database");
@@ -60,7 +58,7 @@ public class OrderMapper {
     }
 
     public ArrayList<Order> getListOfAllCustomersOrders(ConnectionPool connectionPool) throws DatabaseException {
-        String sql = "SELECT customer_orders.order_id, status_name, order_date, SUM(total_price) as total_price_sum " + "FROM customer_orders JOIN order_status ON customer_orders.status_id = order_status.order_id " + "JOIN customer_order_history ON customer_orders.order_id = customer_order_history.order_id " + "GROUP BY customer_orders.order_id, status_name, order_date " + "ORDER BY order_date DESC";
+        String sql = "SELECT customer_orders.order_id, status_name, order_date, SUM(total_price) as total_price_sum " + "FROM customer_orders JOIN order_status ON customer_orders.status_id = order_status.status_id " + "JOIN customer_order_history ON customer_orders.order_id = customer_order_history.order_id " + "GROUP BY customer_orders.order_id, status_name, order_date " + "ORDER BY order_date DESC";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -82,10 +80,11 @@ public class OrderMapper {
     }
 
     public ArrayList<Order> getListOfOneCustomersOrders(ConnectionPool connectionPool, int customerId) throws DatabaseException {
-        String sql = "SELECT status_name, order_date, SUM(total_price) as total_price_sum FROM customer_orders JOIN order_status ON customer_orders.status_id = order_status.order_id JOIN customer_order_history ON customer_orders.order_id = customer_order_history.order_id GROUP BY customer_orders.order_id, status_name, order_date ORDER BY order_date DESC WHERE customer_id = " + customerId;
+        String sql = "SELECT customer_orders.order_id, status_name, order_date, SUM(total_price) as total_price_sum FROM customer_orders JOIN order_status ON customer_orders.status_id = order_status.status_id JOIN customer_order_history ON customer_orders.order_id = customer_order_history.order_id WHERE customer_orders.customer_id = ? GROUP BY customer_orders.order_id, status_name, order_date ORDER BY order_date DESC";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, customerId);
                 ArrayList<Order> listOfOneCustomersOrders = new ArrayList<>();
                 ResultSet rs = ps.executeQuery();
                 int orderId = 1;
@@ -106,7 +105,9 @@ public class OrderMapper {
 
     public void executeConfirmOrder(ConnectionPool connectionPool, int customerId, ArrayList<Cupcakes> cart) throws DatabaseException {
         int orderId = addNewOrder(connectionPool, customerId);
-        addNewOrderHistories(connectionPool, customerId, orderId, cart);
+        if (orderId != 0) {
+            addNewOrderHistories(connectionPool, customerId, orderId, cart);
+        }
     }
 
     public void removeOrderById(ConnectionPool connectionPool, int orderId) throws DatabaseException {
