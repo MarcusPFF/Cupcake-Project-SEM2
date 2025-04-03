@@ -94,47 +94,6 @@ public class CupcakeMapper {
         }
     }
 
-    public int getToppingIdFromToppingFlavour(ConnectionPool connectionPool, String toppingFlavour) throws DatabaseException {
-        String sql = "SELECT topping_id FROM cupcake_toppings WHERE topping_flavour = ?;";
-
-        try (Connection connection = connectionPool.getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
-
-            ps.setString(1, toppingFlavour);
-
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return (rs.getInt("topping_id"));
-
-                } else {
-                    throw new DatabaseException(null, "Could not get topping id from database");
-                }
-            }
-        } catch (SQLException ex) {
-            throw new DatabaseException(ex, "Could not get topping from database");
-        }
-    }
-
-    public int getBottomIdFromBottomFlavour(ConnectionPool connectionPool, String bottomFlavour) throws DatabaseException {
-        String sql = "SELECT bottom_id FROM cupcake_bottoms WHERE bottom_flavour = ?;";
-
-        try (Connection connection = connectionPool.getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
-
-            ps.setString(1, bottomFlavour);
-
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return (rs.getInt("bottom_id"));
-
-                } else {
-                    throw new DatabaseException(null, "Could not get bottom id from database");
-                }
-            }
-        } catch (SQLException ex) {
-            throw new DatabaseException(ex, "Could not get bottom from database");
-        }
-
-    }
-
     public static List<Bottom> getAllBottoms(ConnectionPool connectionPool) throws DatabaseException {
         String sql = "SELECT * FROM cupcake_bottoms";
         List<Bottom> bottoms = new ArrayList<>();

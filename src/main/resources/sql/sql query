@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS public.cupcake_toppings
     topping_id bigserial NOT NULL,
     topping_flavour character varying COLLATE pg_catalog."default" NOT NULL,
     topping_price integer NOT NULL,
+    img_name character varying COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT cupcake_toppings_pkey PRIMARY KEY (topping_id)
 );
 
