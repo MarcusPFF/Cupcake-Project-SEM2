@@ -4,6 +4,11 @@ public class Bottom {
     private String flavour;
     private int id;
 
+    public Bottom(String flavour, int id) {
+        this.flavour = flavour;
+        this.id = id;
+    }
+
     public String getFlavour() {
         return flavour;
     }
@@ -20,10 +25,7 @@ public class Bottom {
         this.id = id;
     }
 
-    public Bottom(String flavour, int id) {
-        this.flavour = flavour;
-        this.id = id;
-    }
+
 
     @Override
     public String toString() {
