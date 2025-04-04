@@ -8,15 +8,15 @@ VALUES
 
 INSERT INTO cupcake_toppings (topping_id, topping_flavour, topping_price, img_name)
 VALUES
-    (1, 'Chocolate', 5.00, chocolate.png),
-    (2, 'Blueberry', 5.00, blueberry.png),
-    (3, 'Raspberry', 5.00, rasberry.png),
-    (4, 'Crispy', 6.00, crispy.png),
-    (5, 'Strawberry', 6.00, strawberry.png),
-    (6, 'Rum/Raisin', 7.00, romrasin.png),
-    (7, 'Orange', 8.00, orange.png),
-    (8, 'Lemon', 8.00, lemon.png),
-    (9, 'Blue cheese', 9.00, bluecheese.png);
+    (1, 'Chocolate', 5.00, 'chocolate.png'),
+    (2, 'Blueberry', 5.00, 'blueberry.png'),
+    (3, 'Raspberry', 5.00, 'rasberry.png'),
+    (4, 'Crispy', 6.00, 'crispy.png'),
+    (5, 'Strawberry', 6.00, 'strawberry.png'),
+    (6, 'Rum/Raisin', 7.00, 'romrasin.png'),
+    (7, 'Orange', 8.00, 'orange.png'),
+    (8, 'Lemon', 8.00, 'lemon.png'),
+    (9, 'Blue cheese', 9.00, 'bluecheese.png');
 
     INSERT INTO order_status (status_name)
     VALUES
