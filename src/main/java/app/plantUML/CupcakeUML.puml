@@ -1,0 +1,185 @@
+@startuml CupcakeFactory
+
+package "app" {
+    package "config" {
+        class SessionConfig {
+            + sessionConfig(): SessionHandler
+        }
+        class ThymeleafConfig {
+            + templateEngine(): TemplateEngine
+        }
+    }
+
+    package "controllers" {
+        class RoutingController {
+            - customerMapper: CustomerMapper
+            - connectionPool: ConnectionPool
+            - cupcakeMapper: CupcakeMapper
+            - orderMapper: OrderMapper
+            + routes(app: Javalin): void
+            + handleConfirmOrder(ctx: Context): void
+            + handleCustomerDeletion(ctx: Context): void
+            + handleOrderDeletion(ctx: Context): void
+            + showCustomersPage(ctx: Context): void
+            + showOrdersPage(ctx: Context): void
+            + showLoginPage(ctx: Context): void
+            + handleLogin(ctx: Context): void
+            + handleLogout(ctx: Context): void
+            + showSignupPage(ctx: Context): void
+            + showIndexPage(ctx: Context): void
+            + handleSignup(ctx: Context): void
+            + handleCart(ctx: Context): void
+            + getShowIndexPage(ctx: Context): void
+        }
+    }
+
+    package "entities" {
+        class Bottom {
+            - flavour: String
+            - id: int
+            + getFlavour(): String
+            + setFlavour(flavour: String): void
+            + getId(): int
+            + setId(id: int): void
+        }
+
+        class Cupcakes {
+            - bottom: Bottom
+            - topping: Topping
+            - quantity: int
+            - totalCupcakePrice: float
+            + getBottom(): Bottom
+            + setBottom(bottom: Bottom): void
+            + getTopping(): Topping
+            + setTopping(topping: Topping): void
+            + getQuantity(): int
+            + setQuantity(quantity: int): void
+            + getTotalCupcakePrice(): float
+            + setTotalCupcakePrice(totalCupcakePrice: float): void
+        }
+
+        class Customer {
+            - wallet: float
+            - email: String
+            - name: String
+            - password: String
+            - customerId: int
+            + getEmail(): String
+            + setEmail(email: String): void
+            + getPassword(): String
+            + setPassword(password: String): void
+            + getWallet(): float
+            + getName(): String
+            + setName(name: String): void
+            + getCustomerId(): int
+            + setCustomerId(customerId: int): void
+        }
+
+        class Order {
+            - orderId: int
+            - status: String
+            - date: Date
+            - totalOrderPrice: float
+            + getOrderId(): int
+            + setOrderId(orderId: int): void
+            + getStatus(): String
+            + setStatus(status: String): void
+            + getDate(): Date
+            + setDate(date: Date): void
+            + getTotalOrderPrice(): float
+            + setTotalOrderPrice(totalOrderPrice: float): void
+        }
+
+        class Topping {
+            - flavour: String
+            - id: int
+            - imgName: String
+            + getFlavour(): String
+            + setFlavour(flavour: String): void
+            + getId(): int
+            + setId(id: int): void
+            + getImgName(): String
+            + setImgName(imgName: String): void
+        }
+    }
+
+    package "exceptions" {
+        class DatabaseException {
+            + DatabaseException(ex: Throwable, message: String)
+        }
+    }
+
+    package "persistence" {
+        class ConnectionPool {
+            - instance: ConnectionPool
+            - ds: HikariDataSource
+            - LOGGER: Logger
+            + getInstance(user: String, password: String, url: String, db: String): ConnectionPool
+            + getConnection(): Connection
+            + close(): void
+            + getInstance(): ConnectionPool
+        }
+
+        class CupcakeMapper {
+            + getBottomFlavourFromBottomId(connectionPool: ConnectionPool, bottomId: int): String
+            + getToppingFlavourFromToppingId(connectionPool: ConnectionPool, toppingId: int): String
+            + getCupcakeBottomPriceFromBottomId(connectionPool: ConnectionPool, bottomId: int): float
+            + getCupcakeToppingPriceFromToppingId(connectionPool: ConnectionPool, toppingId: int): float
+            + getAllBottoms(connectionPool: ConnectionPool): List<Bottom>
+            + getAllToppings(connectionPool: ConnectionPool): List<Topping>
+            + executeGetTotalCupcakePrice(connectionPool: ConnectionPool, toppingId: int, bottomId: int): float
+        }
+
+        class CustomerMapper {
+            - customer: Customer
+            + addNewCustomer(connectionPool: ConnectionPool, email: String, name: String, password: String, wallet: float): boolean
+            + getEmailFromCustomerName(connectionPool: ConnectionPool, customerName: String): String
+            + getCustomerNameFromEmail(connectionPool: ConnectionPool, customerEmail: String): String
+            + verifyUserCredentials(connectionPool: ConnectionPool, customerName: String, password: String): boolean
+            + getCustomerIdFromEmail(connectionPool: ConnectionPool, email: String): int
+            + getAllCustomers(connectionPool: ConnectionPool): List<Customer>
+            + removeCustomerById(connectionPool: ConnectionPool, customerId: int): void
+            + getWalletFromEmail(connectionPool: ConnectionPool, email: String): float
+            + setWallet(connectionPool: ConnectionPool, wallet: double, email: String): void
+        }
+
+        class OrderMapper {
+            + addNewOrder(connectionPool: ConnectionPool, customerId: int): int
+            + addNewOrderHistories(connectionPool: ConnectionPool, customerId: int, orderId: int, cart: ArrayList<Cupcakes>): void
+            + getListOfAllCustomersOrders(connectionPool: ConnectionPool): ArrayList<Order>
+            + getListOfOneCustomersOrders(connectionPool: ConnectionPool, customerId: int): ArrayList<Order>
+            + executeConfirmOrder(connectionPool: ConnectionPool, customerId: int, cart: ArrayList<Cupcakes>): void
+            + removeOrderById(connectionPool: ConnectionPool, orderId: int): void
+            + removeOrderHistoryById(connectionPool: ConnectionPool, orderId: int): void
+            + executeRemoveOrderAndHistoryById(connectionPool: ConnectionPool, orderId: int): void
+        }
+    }
+
+    class Main {
+        - LOGGER: Logger
+        - USER: String
+        - PASSWORD: String
+        - URL: String
+        - DB: String
+        - connectionPool: ConnectionPool
+        + main(args: String[]): void
+    }
+}
+
+
+
+RoutingController --> ConnectionPool
+RoutingController --> CustomerMapper
+RoutingController --> CupcakeMapper
+RoutingController --> OrderMapper
+
+CustomerMapper --> ConnectionPool
+CupcakeMapper --> ConnectionPool
+OrderMapper --> ConnectionPool
+
+Main --> ConnectionPool
+Main --> RoutingController
+Main --> ThymeleafConfig
+Main --> SessionConfig
+
+@enduml
