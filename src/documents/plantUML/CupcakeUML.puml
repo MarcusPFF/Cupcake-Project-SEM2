@@ -1,4 +1,5 @@
 @startuml CupcakeFactory
+!pragma layout smetana
 
 package "app" {
     package "config" {
